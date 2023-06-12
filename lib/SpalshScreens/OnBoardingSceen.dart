@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shohaara/LoginScreens/LoginPage.dart';
@@ -13,172 +15,191 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   PageController _pageController = PageController();
-  int currentPageIndex = 0;
-
+  int currentPage = 0;
+  bool isGoingMain = false;
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
 
+  void goMain() {
+    setState(() {
+      isGoingMain = true;
+    });
+    Future.delayed(Duration(milliseconds: 1000), () {
+      Navigator.push(context, MaterialPageRoute(builder: (ctx) => LoginPage()));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          PageView(
-            onPageChanged: (i) {
-              setState(() {
-                currentPageIndex = i;
-              });
-            },
-            controller: _pageController,
-            children: [
-              Container(
-                color: Colors.white,
-                child: _page("شعراء", "images/Poetry-amico.png", "🙂سلام",
-                    "  به اپلیکیشن اجتماعی شعراء خوش آمدی     "),
-              ),
-              Container(
-                color: Colors.white,
-                child: _page(
-                    "شعراء",
-                    "images/Oil-lamp-amico.png",
-                    "نقد و بررسی",
-                    "دوست خوب من! هر شعر از هر\n شاعری را دوست داری اینجا نقد کن \nو برای دیگران به اشتراک بگذار "),
-              ),
-              Container(
-                color: Colors.white,
-                child: _page(
-                    "شعراء",
-                    "images/Writing-room-amico.png",
-                    "دریافت و پیشنهاد",
-                    "با شعراء میتوانید شعر و شاعر مورد علاقه خود را دریافت نموده و یا برای ما پیشنهاد کنید تا یه اپلیکییشن اضافه شود "),
-              ),
-              Container(
-                color: Colors.white,
-                child: _page1("شعراء", "images/Literature-amico.png",
-                    "خوش آمدی \n کشیدن"),
-              ),
-              Container(
-                color: Colors.white,
-                child: _page1("شعراء", "images/Writing-room-amico.png", ""),
-              ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 320),
-              child: SmoothPageIndicator(
-                controller: _pageController,
-                count: 5,
-                effect: const JumpingDotEffect(
-                  activeDotColor: kPrimaryColor,
-                  dotColor: kSecondrayColor,
-                  dotHeight: 12,
-                  dotWidth: 12,
-                  jumpScale: .7,
-                  verticalOffset: 15,
+      body: AnimatedOpacity(
+        duration: Duration(milliseconds: 400),
+        opacity: isGoingMain ? 0 : 1,
+        child: Stack(
+          children: [
+            PageView(
+              onPageChanged: (i) {
+                setState(() {
+                  currentPage = i;
+                });
+              },
+              controller: _pageController,
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: _page("شعراء", "images/Poetry-amico.png", "🙂سلام",
+                      "  به اپلیکیشن اجتماعی شعراء خوش آمدی     "),
                 ),
-                onDotClicked: (index) {
-                  _pageController.jumpToPage(index);
-                },
+                Container(
+                  color: Colors.white,
+                  child: _page(
+                      "شعراء",
+                      "images/Oil-lamp-amico.png",
+                      "نقد و بررسی",
+                      "دوست خوب من! هر شعر از هر\n شاعری را دوست داری اینجا نقد کن \nو برای دیگران به اشتراک بگذار "),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: _page(
+                      "شعراء",
+                      "images/Writing-room-amico.png",
+                      "دریافت و پیشنهاد",
+                      "با شعراء میتوانید شعر و شاعر مورد علاقه خود را دریافت نموده و یا برای ما پیشنهاد کنید تا یه اپلیکییشن اضافه شود "),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: _page("شعراء", "images/Literature-amico.png",
+                      "خوش آمدی \n کشیدن" , ""),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 320),
+                child: SmoothPageIndicator(
+                  controller: _pageController,
+                  count: 4,
+                  effect: const JumpingDotEffect(
+                    activeDotColor: kPrimaryColor,
+                    dotColor: kSecondrayColor,
+                    dotHeight: 12,
+                    dotWidth: 12,
+                    jumpScale: .7,
+                    verticalOffset: 15,
+                  ),
+                  onDotClicked: (index) {
+                    _pageController.jumpToPage(index);
+                  },
+                ),
               ),
             ),
-          ),
-          Row(
-            children: [
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(100, 50),
-                      backgroundColor: Colors.white,
-                      elevation: 5,
-                      shadowColor: Colors.black,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(50),
-                          bottomRight: Radius.circular(50),
+            Row(
+              children: [
+                AnimatedOpacity(
+                  duration: Duration(milliseconds: 200),
+                  opacity: (currentPage == 0) ? 0 : 1,
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(100, 50),
+                          backgroundColor: Colors.white,
+                          elevation: 5,
+                          shadowColor: Colors.black,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(50),
+                              bottomRight: Radius.circular(50),
+                            ),
+                          ),
                         ),
+                        icon: const Icon(
+                          FontAwesomeIcons.arrowLeft,
+                          color: kSecondrayColor,
+                        ),
+                        label: const Text(
+                          "بزن قبلی",
+                          style: TextStyle(
+                              color: kSecondrayColor, fontFamily: "Vazir"),
+                        ),
+                        onPressed: (currentPage == 0)
+                            ? null
+                            : () {
+                                _pageController.animateToPage(currentPage - 1,
+                                    duration: Duration(milliseconds: 700),
+                                    curve: Curves.ease);
+                              },
                       ),
                     ),
-                    icon: const Icon(
-                      FontAwesomeIcons.arrowLeft,
-                      color: kSecondrayColor,
-                    ),
-                    label: const Text(
-                      "بزن قبلی",
-                      style: TextStyle(
-                          color: kSecondrayColor,
-                          fontFamily: "Vazirmatn-VariableFont_wght"),
-                    ),
-                    onPressed: () {},
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 35, bottom: 8),
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                        );
-                      });
-                    },
-                    child: const Text(
-                      "بریم صفحه اصلی",
-                      style: TextStyle(
-                          color: kSecondrayColor,
-                          fontFamily: "Vazirmatn-VariableFont_wght"),
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 25, bottom: 30),
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(100, 50),
-                      backgroundColor: Colors.white,
-                      elevation: 5,
-                      shadowColor: Colors.black,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          bottomLeft: Radius.circular(50),
-                        ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 35, bottom: 8),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                      ),
+                      onPressed: () => goMain(),
+                      child: const Text(
+                        "بریم صفحه اصلی",
+                        style: TextStyle(
+                            color: kSecondrayColor, fontFamily: "Vazir"),
                       ),
                     ),
-                    icon: const Text(
-                      "بزن بعدی",
-                      style: TextStyle(
-                          color: kSecondrayColor,
-                          fontFamily: "Vazirmatn-VariableFont_wght"),
-                    ),
-                    label: const Icon(
-                      FontAwesomeIcons.arrowRight,
-                      color: kSecondrayColor,
-                    ),
-                    onPressed: () {},
                   ),
                 ),
-              ),
-            ],
-          )
-        ],
+                AnimatedOpacity(
+                  duration: Duration(milliseconds: 200),
+                  opacity: (currentPage < 3) ? 1 : 0,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25, bottom: 30),
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(100, 50),
+                          backgroundColor: Colors.white,
+                          elevation: 5,
+                          shadowColor: Colors.black,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          ),
+                        ),
+                        icon: const Text(
+                          "بزن بعدی",
+                          style: TextStyle(
+                              color: kSecondrayColor, fontFamily: "Vazir"),
+                        ),
+                        label: const Icon(
+                          FontAwesomeIcons.arrowRight,
+                          color: kSecondrayColor,
+                        ),
+                        onPressed: (currentPage < 3)
+                            ? () {
+                                _pageController.animateToPage(currentPage + 1,
+                                    duration: Duration(milliseconds: 700),
+                                    curve: Curves.ease);
+                              }
+                            : null,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -230,7 +251,7 @@ Widget _page(String GnTitle, String imagePath, String title, String subTitle) {
               title,
               style: const TextStyle(
                   fontSize: 26,
-                  fontFamily: "Vazirmatn-VariableFont_wght",
+                  fontFamily: "Vazir",
                   fontWeight: FontWeight.bold,
                   color: kPrimaryColor),
             ),
@@ -249,7 +270,7 @@ Widget _page(String GnTitle, String imagePath, String title, String subTitle) {
                 fontSize: 22,
                 fontWeight: FontWeight.w400,
                 color: kPrimaryColor,
-                fontFamily: "Vazirmatn-VariableFont_wght",
+                fontFamily: "Vazir",
               ),
             ),
           ),
@@ -259,47 +280,56 @@ Widget _page(String GnTitle, String imagePath, String title, String subTitle) {
   );
 }
 
-Widget _page1(String title, String imagePath1, String text1) {
-  return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-    Container(
-      alignment: Alignment.topCenter,
-      width: double.infinity,
-      height: 70,
-      child: Text(
-        title,
-        style: TextStyle(
-            shadows: [
-              Shadow(
-                color: kPrimaryColor.withOpacity(0.4),
-                blurRadius: 18.0,
-                offset: Offset(5.0, 7.0),
-              ),
-            ],
-            fontSize: 50,
-            fontFamily: "A.Ali_banner3az.ir",
-            fontWeight: FontWeight.w500,
-            color: kPrimaryColor),
-      ),
-    ),
-    Container(
-      child: Image.asset(
-        imagePath1,
-        height: 300,
-      ),
-    ),
-    Container(
-      alignment: Alignment.center,
-      width: 300,
-      height: 100,
-      child: Text(
-        textAlign: TextAlign.center,
-        text1,
-        style: const TextStyle(
-            fontSize: 26,
-            fontFamily: "Vazirmatn-VariableFont_wght",
-            fontWeight: FontWeight.bold,
-            color: kPrimaryColor),
-      ),
-    ),
-  ]);
-}
+// Widget _page1(String title, String imagePath1, String text1) {
+//   return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+//     Container(
+//       alignment: Alignment.topCenter,
+//       width: double.infinity,
+//       height: 70,
+//       child: Text(
+//         title,
+//         style: TextStyle(
+//             shadows: [
+//               Shadow(
+//                 color: kPrimaryColor.withOpacity(0.4),
+//                 blurRadius: 18.0,
+//                 offset: Offset(5.0, 7.0),
+//               ),
+//             ],
+//             fontSize: 50,
+//             fontFamily: "A.Ali_banner3az.ir",
+//             fontWeight: FontWeight.w500,
+//             color: kPrimaryColor),
+//       ),
+//     ),
+//     SizedBox(
+//       height: 20,
+//     ),
+//     Container(
+//       child: Image.asset(
+//         imagePath1,
+//         height: 300,
+//       ),
+//     ),
+//     SizedBox(
+//       height: 30,
+//     ),
+//     Container(
+//       alignment: Alignment.center,
+//       width: 300,
+//       height: 100,
+//       child: Text(
+//         textAlign: TextAlign.center,
+//         text1,
+//         style: const TextStyle(
+//             fontSize: 26,
+//             fontFamily: "Vazir",
+//             fontWeight: FontWeight.bold,
+//             color: kPrimaryColor),
+//       ),
+//     ),
+//     SizedBox(
+//       height: 120,
+//     ),
+//   ]);
+// }

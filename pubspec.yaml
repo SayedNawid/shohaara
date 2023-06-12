@@ -1,7 +1,7 @@
 name: shohaara
 description: A new Flutter project.
 
-publish_to: "none" 
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -33,10 +33,10 @@ flutter:
       fonts:
         - asset: fonts/A.Ali_banner3az.ir.ttf
 
-    - family: Vazirmatn-VariableFont_wght
+    - family: Vazir
       fonts:
         - asset: fonts/static/Vazirmatn-Bold.ttf
-          weight: 700 
+          weight: 700
         - asset: fonts/static/Vazirmatn-SemiBold.ttf
           weight: 600
         - asset: fonts/static/Vazirmatn-Medium.ttf
@@ -44,6 +44,4 @@ flutter:
         - asset: fonts/static/Vazirmatn-Regular.ttf
           weight: 400
         - asset: fonts/static/Vazirmatn-Light.ttf
-          weight: 300 
-        
-      
+          weight: 300

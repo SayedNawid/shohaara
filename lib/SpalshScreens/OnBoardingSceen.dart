@@ -1,9 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shohaara/LoginScreens/LoginPage.dart';
+import 'package:shohaara/SpalshScreens/welcomePage.dart';
 import 'package:shohaara/constants.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -71,8 +71,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
                 Container(
                   color: Colors.white,
-                  child: _page("شعراء", "images/Literature-amico.png",
-                      "خوش آمدی \n کشیدن" , ""),
+                  child: _page1(
+                    "شعراء",
+                    "images/Literature-amico.png",
+                    "خوش آمدی\n کشیدن",
+                  ),
                 ),
               ],
             ),
@@ -280,56 +283,81 @@ Widget _page(String GnTitle, String imagePath, String title, String subTitle) {
   );
 }
 
-// Widget _page1(String title, String imagePath1, String text1) {
-//   return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-//     Container(
-//       alignment: Alignment.topCenter,
-//       width: double.infinity,
-//       height: 70,
-//       child: Text(
-//         title,
-//         style: TextStyle(
-//             shadows: [
-//               Shadow(
-//                 color: kPrimaryColor.withOpacity(0.4),
-//                 blurRadius: 18.0,
-//                 offset: Offset(5.0, 7.0),
-//               ),
-//             ],
-//             fontSize: 50,
-//             fontFamily: "A.Ali_banner3az.ir",
-//             fontWeight: FontWeight.w500,
-//             color: kPrimaryColor),
-//       ),
-//     ),
-//     SizedBox(
-//       height: 20,
-//     ),
-//     Container(
-//       child: Image.asset(
-//         imagePath1,
-//         height: 300,
-//       ),
-//     ),
-//     SizedBox(
-//       height: 30,
-//     ),
-//     Container(
-//       alignment: Alignment.center,
-//       width: 300,
-//       height: 100,
-//       child: Text(
-//         textAlign: TextAlign.center,
-//         text1,
-//         style: const TextStyle(
-//             fontSize: 26,
-//             fontFamily: "Vazir",
-//             fontWeight: FontWeight.bold,
-//             color: kPrimaryColor),
-//       ),
-//     ),
-//     SizedBox(
-//       height: 120,
-//     ),
-//   ]);
-// }
+Widget _page1(String title, String imagePath1, String text1) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        alignment: Alignment.topCenter,
+        width: double.infinity,
+        height: 70,
+        child: Text(
+          title,
+          style: TextStyle(
+              shadows: [
+                Shadow(
+                  color: kPrimaryColor.withOpacity(0.4),
+                  blurRadius: 18.0,
+                  offset: Offset(5.0, 7.0),
+                ),
+              ],
+              fontSize: 50,
+              fontFamily: "A.Ali_banner3az.ir",
+              fontWeight: FontWeight.w500,
+              color: kPrimaryColor),
+        ),
+      ),
+      SizedBox(
+        height: 20,
+      ),
+      Container(
+        child: Image.asset(
+          imagePath1,
+          height: 300,
+        ),
+      ),
+      SizedBox(
+        height: 30,
+      ),
+      Container(
+        alignment: Alignment.center,
+        width: 300,
+        height: 100,
+        child: Text(
+          textAlign: TextAlign.center,
+          text1,
+          style: const TextStyle(
+              fontSize: 26,
+              fontFamily: "Vazir",
+              fontWeight: FontWeight.bold,
+              color: kPrimaryColor),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Container(
+        width: double.infinity,
+        height: 100,
+        child: Builder(builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40),
+            child: SlideAction(
+              elevation: 5,
+              outerColor: Colors.white,
+              innerColor: kPrimaryColor,
+              text: (""),
+              sliderRotate: false,
+              onSubmit: () {
+                Future.delayed(Duration(milliseconds: 500), () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => WelcomePage()));
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    ],
+  );
+}

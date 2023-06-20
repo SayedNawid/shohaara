@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shohaara/LoginScreens/sign_in_page.dart';
+import 'package:shohaara/LoginScreens/sign_up_page.dart';
 import 'package:shohaara/SpalshScreens/welcomePage.dart';
 import '../constants.dart';
 
@@ -62,7 +63,10 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignUpPage()));
+                  },
                   child: Text(
                     "حساب جدید",
                     style: const TextStyle(

@@ -2,8 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shohaara/LoginScreens/LoginPage.dart';
+import 'package:shohaara/LoginScreens/sign_up_page.dart';
 
 import '../constants.dart';
+import 'components/rounded_input_field.dart';
+import 'components/rounded_pasword_field.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -102,37 +105,8 @@ class _SignInPageState extends State<SignInPage> {
                   iconData: FontAwesomeIcons.user,
                   onChanged: (value) {},
                 ),
-                TextFieldContainer(
-                  child: TextField(
-                    obscureText: true,
-                    style: TextStyle(
-                        color: kSecondrayColor,
-                        fontFamily: "Vazir",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.right,
-                    decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          size: 20,
-                          FontAwesomeIcons.lock,
-                          color: kPrimaryColor,
-                        ),
-                        prefixIcon: Icon(
-                          size: 20,
-                          FontAwesomeIcons.eyeLowVision,
-                          color: kPrimaryColor,
-                        ),
-                        hintText: "رمز عبور",
-                        hintStyle: TextStyle(
-                            fontFamily: "Vazir", color: kPrimaryColor),
-                        border: InputBorder.none,
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: kPrimaryColor,
-                            ))),
-                  ),
+                RoundedInputPassword(
+                  onChanged: (value) {},
                 ),
                 SizedBox(
                   height: 15,
@@ -184,7 +158,7 @@ class _SignInPageState extends State<SignInPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (ctx) => LoginPage(),
+                                    builder: (ctx) => SignUpPage(),
                                   ));
                             },
                         ),
@@ -209,68 +183,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 }
 
-class RoundedInputField extends StatelessWidget {
-  final String hintText;
-  final IconData iconData;
-  final ValueChanged<String> onChanged;
-  const RoundedInputField({
-    super.key,
-    required this.hintText,
-    required this.iconData,
-    required this.onChanged,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFieldContainer(
-      child: TextField(
-        onChanged: onChanged,
-        style: TextStyle(
-            color: kSecondrayColor,
-            fontFamily: "Vazir",
-            fontSize: 18,
-            fontWeight: FontWeight.w400),
-        textAlign: TextAlign.right,
-        decoration: InputDecoration(
-            suffixIcon: Icon(
-              size: 20,
-              iconData,
-              color: kPrimaryColor,
-            ),
-            hintText: hintText,
-            hintStyle: TextStyle(fontFamily: "Vazir", color: kPrimaryColor),
-            border: InputBorder.none,
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(
-                  width: 2,
-                  color: kPrimaryColor,
-                ))),
-      ),
-    );
-  }
-}
 
-class TextFieldContainer extends StatelessWidget {
-  final Widget child;
-  const TextFieldContainer({
-    super.key,
-    required this.child,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      width: size.width * 0.8,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(29),
-      ),
-      child: child,
-    );
-  }
-}

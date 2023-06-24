@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import '../../constants.dart';
 import 'TextFieldContainer.dart';
 
-class RoundedInputPassword extends StatelessWidget {
+class RoundedUserNameField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String hintText;
-  const RoundedInputPassword({
+  final IconData iconData;
+  const RoundedUserNameField({
     super.key,
     required this.onChanged,
-    required this.hintText
+    required this.hintText,
+    required this.iconData,
   });
 
   @override
@@ -19,7 +20,8 @@ class RoundedInputPassword extends StatelessWidget {
       child: TextField(
         onChanged: onChanged,
         showCursor: false,
-        obscureText: true,
+        obscureText: false,
+        keyboardType: TextInputType.text,
         style: TextStyle(
             color: kSecondrayColor,
             fontFamily: "Vazir",
@@ -29,12 +31,12 @@ class RoundedInputPassword extends StatelessWidget {
         decoration: InputDecoration(
             suffixIcon: Icon(
               size: 20,
-              FontAwesomeIcons.lock,
+              iconData,
               color: kPrimaryColor,
             ),
             prefixIcon: Icon(
               size: 20,
-              FontAwesomeIcons.eyeLowVision,
+              FontAwesomeIcons.star,
               color: kPrimaryColor,
             ),
             hintText: hintText,

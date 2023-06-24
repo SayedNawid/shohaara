@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shohaara/LoginScreens/LoginPage.dart';
 import 'package:shohaara/SpalshScreens/welcomePage.dart';
 import 'package:shohaara/constants.dart';
+import 'package:shohaara/main_page.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -29,7 +30,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       isGoingMain = true;
     });
     Future.delayed(Duration(milliseconds: 1000), () {
-      Navigator.push(context, MaterialPageRoute(builder: (ctx) => LoginPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MainPage()));
     });
   }
 

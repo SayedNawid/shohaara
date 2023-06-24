@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shohaara/LoginScreens/LoginPage.dart';
 import 'package:shohaara/LoginScreens/sign_up_page.dart';
+import 'package:shohaara/main_page.dart';
 
 import '../constants.dart';
+import 'components/button_confirm.dart';
+import 'components/rich_text_class.dart';
 import 'components/rounded_input_field.dart';
 import 'components/rounded_pasword_field.dart';
 
@@ -107,32 +109,12 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 RoundedInputPassword(
                   onChanged: (value) {},
+                  hintText: "رمز عبور",
                 ),
                 SizedBox(
                   height: 15,
                 ),
-                Container(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "تآیید",
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Vazir",
-                          fontSize: 18),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.only(left: 15, right: 15),
-                      backgroundColor: kPrimaryColor,
-                      minimumSize: const Size(315, 60),
-                      elevation: 10,
-                      shadowColor: kPrimaryColor,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
-                    ),
-                  ),
-                ),
+                ButtonConfirm(),
                 Container(
                   alignment: Alignment.bottomCenter,
                   width: 300,
@@ -182,8 +164,3 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 }
-
-
-
-
-

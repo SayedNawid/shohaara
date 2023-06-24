@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/LoginScreens/sign_up_page.dart';
 import 'package:shohaara/SpalshScreens/welcomePage.dart';
+import 'package:shohaara/main_page.dart';
 import '../constants.dart';
 
 class LoginPage extends StatelessWidget {
@@ -162,7 +163,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (ctx) => WelcomePage(),
+                                  builder: (ctx) => MainPage(),
                                 ));
                           },
                       ),

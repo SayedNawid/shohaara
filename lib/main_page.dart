@@ -106,6 +106,160 @@ class _MainPageState extends State<MainPage> {
                                             BorderRadius.circular(100))),
                                 onPressed: () {},
                                 icon: Icon(
+                                  FontAwesomeIcons.save,
+                                  color: kPrimaryColor,
+                                ),
+                                label: Text(""),
+                              ),
+                              Spacer(),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(35, 55),
+                                    elevation: 0,
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100))),
+                                onPressed: () {},
+                                icon: Text(
+                                  "124",
+                                  style: TextStyle(
+                                      fontFamily: "Vazir",
+                                      color: kPrimaryColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                label: Icon(
+                                  FontAwesomeIcons.comment,
+                                  color: kPrimaryColor,
+                                ),
+                              ),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(35, 55),
+                                    elevation: 0,
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100))),
+                                onPressed: () {},
+                                icon: Text(
+                                  "12",
+                                  style: TextStyle(
+                                      fontFamily: "Vazir",
+                                      color: kPrimaryColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                label: Icon(
+                                  FontAwesomeIcons.lemon,
+                                  color: kPrimaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 1,
+                            color: kPrimaryColor,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 100,
+                            child: Text(
+                              "من حلقه های زلفش از عشق می شمارم \n ور نه کجا رسد کس در حدو در شمارش \n یک جان چه بود صد جان منی ای خوب من",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontFamily: "Vazir",
+                                  color: kPrimaryColor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: Container(
+                            width: double.infinity,
+                            height: 80,
+                            child: Row(
+                              children: [
+                                ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size(35, 55),
+                                      elevation: 0,
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(100))),
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    FontAwesomeIcons.addressCard,
+                                    color: kPrimaryColor,
+                                  ),
+                                  label: Text(""),
+                                ),
+                                Spacer(),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "سید نوید محمدی ",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: "Vazir",
+                                          color: kPrimaryColor),
+                                    ),
+                                    Text(
+                                      "2March - 02:34pm",
+                                      style: TextStyle(
+                                          fontSize: 12, color: kPrimaryColor),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage("images/profile.png"),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Card(
+                    shadowColor: kPrimaryColor,
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(35, 55),
+                                    elevation: 0,
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100))),
+                                onPressed: () {},
+                                icon: Icon(
                                   FontAwesomeIcons.addressCard,
                                   color: kPrimaryColor,
                                 ),
@@ -269,7 +423,7 @@ class _MainPageState extends State<MainPage> {
                               Column(
                                 children: [
                                   Text(
-                                    "سید نوید محمدی ",
+                                    "احمد ارشاد قربانی ",
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontFamily: "Vazir",
@@ -432,7 +586,7 @@ class _MainPageState extends State<MainPage> {
                               Column(
                                 children: [
                                   Text(
-                                    "سید نوید محمدی ",
+                                    "محمد احسان یارخیل ",
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontFamily: "Vazir",
@@ -591,7 +745,7 @@ class _MainPageState extends State<MainPage> {
                               Column(
                                 children: [
                                   Text(
-                                    "سید مسعود نیازی ",
+                                    "ولی احمد قره چولیان ",
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontFamily: "Vazir",
@@ -676,7 +830,7 @@ class _MainPageState extends State<MainPage> {
                                               BorderRadius.circular(100))),
                                   onPressed: () {},
                                   icon: Text(
-                                    "124",
+                                    "114",
                                     style: TextStyle(
                                         fontFamily: "Vazir",
                                         color: kPrimaryColor,
@@ -698,7 +852,7 @@ class _MainPageState extends State<MainPage> {
                                               BorderRadius.circular(100))),
                                   onPressed: () {},
                                   icon: Text(
-                                    "12",
+                                    "25",
                                     style: TextStyle(
                                         fontFamily: "Vazir",
                                         color: kPrimaryColor,
@@ -750,7 +904,7 @@ class _MainPageState extends State<MainPage> {
                               Column(
                                 children: [
                                   Text(
-                                    "سید نوید محمدی ",
+                                    "احمد الیاس احمدی ",
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontFamily: "Vazir",
@@ -835,7 +989,7 @@ class _MainPageState extends State<MainPage> {
                                               BorderRadius.circular(100))),
                                   onPressed: () {},
                                   icon: Text(
-                                    "124",
+                                    "138",
                                     style: TextStyle(
                                         fontFamily: "Vazir",
                                         color: kPrimaryColor,
@@ -857,7 +1011,7 @@ class _MainPageState extends State<MainPage> {
                                               BorderRadius.circular(100))),
                                   onPressed: () {},
                                   icon: Text(
-                                    "12",
+                                    "18",
                                     style: TextStyle(
                                         fontFamily: "Vazir",
                                         color: kPrimaryColor,

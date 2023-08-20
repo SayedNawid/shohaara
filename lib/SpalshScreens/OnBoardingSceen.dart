@@ -110,7 +110,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 30),
+                      padding: const EdgeInsets.only(bottom: 20),
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(100, 50),
@@ -147,7 +147,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 35, bottom: 8),
+                    padding: const EdgeInsets.only(left: 10, bottom: 8),
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -220,7 +220,7 @@ Widget _page(String GnTitle, String imagePath, String title, String subTitle) {
         children: [
           Container(
             alignment: Alignment.topCenter,
-            width: double.infinity,
+            width: 300,
             height: 70,
             child: Text(
               GnTitle,

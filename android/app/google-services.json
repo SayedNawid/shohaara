@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "515629477260",
+    "project_id": "shohaara",
+    "storage_bucket": "shohaara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515629477260:android:b3dff308e302b574883aa9",
+        "android_client_info": {
+          "package_name": "com.example.shohaara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515629477260-vm7iuqog62uhab286laq1tjh6cgcb7br.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoiLvMVeq5mny08vB4qepiXM14l7rObhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515629477260-vm7iuqog62uhab286laq1tjh6cgcb7br.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

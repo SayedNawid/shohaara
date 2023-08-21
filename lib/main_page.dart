@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
                                     borderRadius: BorderRadius.circular(100))),
                             onPressed: () {},
                             icon: Icon(
-                              FontAwesomeIcons.search,
+                              Icons.search,
                               color: kPrimaryColor,
                             ),
                             label: Text("")),
@@ -61,14 +61,14 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: TextField(
                     showCursor: true,
                     cursorColor: kSecondrayColor,
                     style: TextStyle(
                         color: kSecondrayColor,
                         fontFamily: "Vazir",
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -143,7 +143,7 @@ class _MainPageState extends State<MainPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(4.0),
                           child: Container(
                             width: double.infinity,
                             height: 1,
@@ -188,7 +188,7 @@ class _MainPageState extends State<MainPage> {
                                               BorderRadius.circular(100))),
                                   onPressed: () {},
                                   icon: Icon(
-                                    Icons.bookmark_add_outlined,
+                                    Icons.bookmark_outline_outlined,
                                     color: kPrimaryColor,
                                   ),
                                   label: Text(""),
@@ -204,11 +204,11 @@ class _MainPageState extends State<MainPage> {
                                               BorderRadius.circular(100))),
                                   onPressed: () {},
                                   icon: Text(
-                                    "",
+                                    "10",
                                     style: TextStyle(
                                         fontFamily: "Vazir",
                                         color: kPrimaryColor,
-                                        fontSize: 16,
+                                        fontSize: 13,
                                         fontWeight: FontWeight.w500),
                                   ),
                                   label: Icon(
@@ -218,341 +218,24 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 ElevatedButton.icon(
                                   style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(35, 55),
-                                      elevation: 0,
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100))),
+                                    minimumSize: const Size(35, 55),
+                                    elevation: 0,
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                  ),
                                   onPressed: () {},
                                   icon: Text(
-                                    "",
+                                    "10",
                                     style: TextStyle(
                                         fontFamily: "Vazir",
                                         color: kPrimaryColor,
-                                        fontSize: 16,
+                                        fontSize: 13,
                                         fontWeight: FontWeight.w500),
                                   ),
                                   label: Icon(
                                     Icons.favorite_border_outlined,
-                                    color: kPrimaryColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Card(
-                    shadowColor: kPrimaryColor,
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(35, 55),
-                                    elevation: 0,
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(100))),
-                                onPressed: () {},
-                                icon: Icon(
-                                  FontAwesomeIcons.addressCard,
-                                  color: kPrimaryColor,
-                                ),
-                                label: Text(""),
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [
-                                  Text(
-                                    "ولی احمد قره چولیان ",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: "Vazir",
-                                        color: kPrimaryColor),
-                                  ),
-                                  Text(
-                                    "2March - 02:34pm",
-                                    style: TextStyle(
-                                        fontSize: 12, color: kPrimaryColor),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("images/profile.png"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 1,
-                            color: kPrimaryColor,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 100,
-                            child: Text(
-                              "لحظه ها می گذرد آنچه بگذشت\nنمی آید باز قصه هست که \nهرگز دیگر نتواند شد آغاز",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: "Vazir",
-                                  color: kPrimaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 170,
-                          child: Image.asset("images/matn4.jpeg"),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 8),
-                          child: Container(
-                            width: double.infinity,
-                            height: 80,
-                            child: Row(
-                              children: [
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(35, 55),
-                                      elevation: 0,
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100))),
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    FontAwesomeIcons.save,
-                                    color: kPrimaryColor,
-                                  ),
-                                  label: Text(""),
-                                ),
-                                Spacer(),
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(35, 55),
-                                      elevation: 0,
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100))),
-                                  onPressed: () {},
-                                  icon: Text(
-                                    "114",
-                                    style: TextStyle(
-                                        fontFamily: "Vazir",
-                                        color: kPrimaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  label: Icon(
-                                    FontAwesomeIcons.comment,
-                                    color: kPrimaryColor,
-                                  ),
-                                ),
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(35, 55),
-                                      elevation: 0,
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100))),
-                                  onPressed: () {},
-                                  icon: Text(
-                                    "25",
-                                    style: TextStyle(
-                                        fontFamily: "Vazir",
-                                        color: kPrimaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  label: Icon(
-                                    FontAwesomeIcons.lemon,
-                                    color: kPrimaryColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Card(
-                    shadowColor: kPrimaryColor,
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(35, 55),
-                                    elevation: 0,
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(100))),
-                                onPressed: () {},
-                                icon: Icon(
-                                  FontAwesomeIcons.addressCard,
-                                  color: kPrimaryColor,
-                                ),
-                                label: Text(""),
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [
-                                  Text(
-                                    "احمد الیاس احمدی ",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: "Vazir",
-                                        color: kPrimaryColor),
-                                  ),
-                                  Text(
-                                    "2March - 02:34pm",
-                                    style: TextStyle(
-                                        fontSize: 12, color: kPrimaryColor),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("images/profile.png"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 1,
-                            color: kPrimaryColor,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 100,
-                            child: Text(
-                              "زندگی بار گرانی ست\n که بر پشت پریشانی تست کار آسانی نیست\n نان درآوردن و غم خوردن و عاشق بودن ",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: "Vazir",
-                                  color: kPrimaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 170,
-                          child: Image.asset("images/matn3.jpeg"),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 8),
-                          child: Container(
-                            width: double.infinity,
-                            height: 80,
-                            child: Row(
-                              children: [
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(35, 55),
-                                      elevation: 0,
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100))),
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    FontAwesomeIcons.save,
-                                    color: kPrimaryColor,
-                                  ),
-                                  label: Text(""),
-                                ),
-                                Spacer(),
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(35, 55),
-                                      elevation: 0,
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100))),
-                                  onPressed: () {},
-                                  icon: Text(
-                                    "138",
-                                    style: TextStyle(
-                                        fontFamily: "Vazir",
-                                        color: kPrimaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  label: Icon(
-                                    FontAwesomeIcons.comment,
-                                    color: kPrimaryColor,
-                                  ),
-                                ),
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(35, 55),
-                                      elevation: 0,
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100))),
-                                  onPressed: () {},
-                                  icon: Text(
-                                    "18",
-                                    style: TextStyle(
-                                        fontFamily: "Vazir",
-                                        color: kPrimaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  label: Icon(
-                                    FontAwesomeIcons.lemon,
                                     color: kPrimaryColor,
                                   ),
                                 ),

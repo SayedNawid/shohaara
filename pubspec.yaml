@@ -21,6 +21,7 @@ dependencies:
   cloud_firestore: ^4.8.4
   firebase_storage: ^11.2.5
   fluttericon: ^2.0.0
+  rive: ^0.11.14
 
 
 dev_dependencies:

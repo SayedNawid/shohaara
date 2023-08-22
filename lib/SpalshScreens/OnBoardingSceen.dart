@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shohaara/LoginScreens/LoginPage.dart';
 import 'package:shohaara/SpalshScreens/welcomePage.dart';
 import 'package:shohaara/constants.dart';
 import 'package:shohaara/main_page.dart';

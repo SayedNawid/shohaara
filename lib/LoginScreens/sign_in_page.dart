@@ -104,7 +104,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 RoundedInputField(
                   hintText: "نام کاربری",
-                  iconData: FontAwesomeIcons.user,
+                  iconData: Icons.person,
                   onChanged: (value) {},
                 ),
                 RoundedInputPassword(

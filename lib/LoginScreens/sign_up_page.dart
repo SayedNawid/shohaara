@@ -112,28 +112,28 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     RoundedInputField(
                       hintText: "نام کاربری",
-                      iconData: FontAwesomeIcons.user,
+                      iconData: Icons.person,
                       onChanged: (value) {},
                     ),
                     RoundedInputField(
                       hintText: "نام فامیلی",
-                      iconData: FontAwesomeIcons.userCheck,
+                      iconData: Icons.supervised_user_circle,
                       onChanged: (value) {},
                     ),
                     RoundedStarField(
                       hintText: "شماره مبایل",
-                      iconData: FontAwesomeIcons.phone,
+                      iconData: Icons.phone_android_rounded,
                       onChanged: (value) {},
                     ),
                     RoundedInputField(
                       hintText: "ایمیل آدرس",
-                      iconData: FontAwesomeIcons.mailchimp,
+                      iconData: Icons.email_rounded,
                       onChanged: (value) {},
                     ),
                     RoundedUserNameField(
                         onChanged: (value) {},
                         hintText: "نام کاربری",
-                        iconData: FontAwesomeIcons.userGear),
+                        iconData: Icons.person_3),
                     RoundedUserNameField(
                       hintText: "رمز عبور",
                       iconData: FontAwesomeIcons.lockOpen,

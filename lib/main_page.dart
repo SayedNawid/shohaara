@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shohaara/MainCategory/CommentPage.dart';
+import 'package:shohaara/MainCategory/CreatePost.dart';
+import 'package:shohaara/MainCategory/ProfilePage.dart';
+import 'package:shohaara/MainCategory/search_post.dart';
 import 'package:shohaara/constants.dart';
+import 'package:shohaara/navigation/sideMenu.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -23,8 +28,26 @@ class _MainPageState extends State<MainPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage("images/profile.png"),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                          style: IconButton.styleFrom(
+                              minimumSize: const Size(35, 55),
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => SideMenu()));
+                          },
+                          icon: Icon(
+                            Icons.vertical_distribute_outlined,
+                            color: kPrimaryColor,
+                          ),
+                        ),
                       ),
                       Text(
                         "شعراء",
@@ -43,46 +66,54 @@ class _MainPageState extends State<MainPage> {
                       ),
                       Align(
                         alignment: Alignment.topRight,
-                        child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(35, 55),
-                                elevation: 0,
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100))),
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.search,
-                              color: kPrimaryColor,
-                            ),
-                            label: Text("")),
+                        child: IconButton(
+                          style: IconButton.styleFrom(
+                              minimumSize: const Size(35, 55),
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchPost()));
+                          },
+                          icon: Icon(
+                            Icons.search,
+                            color: kPrimaryColor,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextField(
-                    showCursor: true,
-                    cursorColor: kSecondrayColor,
-                    style: TextStyle(
-                        color: kSecondrayColor,
-                        fontFamily: "Vazir",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      hintText: "آیا شعر جدیدی دارید؟",
-                      hintStyle:
-                          TextStyle(fontFamily: "Vazir", color: kPrimaryColor),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(width: 1, color: kPrimaryColor),
+                Container(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => CreatePost())));
+                    },
+                    child: Text(
+                      "آیا کدام شعر جدید دارید",
+                      style: const TextStyle(
+                          color: kPrimaryColor,
+                          fontFamily: "Vazir",
+                          fontSize: 18),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.only(left: 15, right: 15),
+                      backgroundColor: Colors.white,
+                      minimumSize: const Size(315, 50),
+                      elevation: 0,
+                      side: BorderSide(
+                        color: kPrimaryColor,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(width: 1, color: kPrimaryColor),
+                      shadowColor: kPrimaryColor,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
                       ),
                     ),
                   ),
@@ -108,7 +139,12 @@ class _MainPageState extends State<MainPage> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(100))),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ProfilePage()));
+                                },
                                 icon: Icon(
                                   Icons.more_vert_outlined,
                                   color: kPrimaryColor,
@@ -202,7 +238,13 @@ class _MainPageState extends State<MainPage> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(100))),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CommentPage()));
+                                  },
                                   icon: Text(
                                     "10",
                                     style: TextStyle(

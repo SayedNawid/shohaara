@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shohaara/main_page.dart';
 
 import '../../constants.dart';
 
@@ -11,7 +12,10 @@ class ButtonConfirm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        },
         child: Text(
           "تآیید",
           style: const TextStyle(

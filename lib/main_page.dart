@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shohaara/MainCategory/CommentPage.dart';
 import 'package:shohaara/MainCategory/CreatePost.dart';
 import 'package:shohaara/MainCategory/ProfilePage.dart';
@@ -15,9 +17,76 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.purple[900],
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 20,
+              color: Colors.black.withOpacity(.1),
+            )
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: GNav(
+              rippleColor: Colors.purple,
+              hoverColor: Colors.purple.shade900,
+              gap: 8,
+              activeColor: Colors.purple[900],
+              iconSize: 24,
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              duration: Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[100]!,
+              color: Colors.black,
+              tabs: [
+                GButton(
+                  icon: Icons.settings,
+                  iconColor: Colors.white,
+                  text: 'تنظیمات',
+                ),
+                GButton(
+                  icon: Icons.chat,
+                  iconColor: Colors.white,
+                  text: 'شعرجنگی',
+                ),
+                GButton(
+                  icon: LineIcons.home,
+                  iconColor: Colors.white,
+                  text: 'خانه',
+                ),
+                GButton(
+                  icon: Icons.supervised_user_circle_sharp,
+                  iconColor: Colors.white,
+                  text: 'شاعران',
+                ),
+                GButton(
+                  icon: Icons.person,
+                  iconColor: Colors.white,
+                  text: 'پروفایل',
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()));
+                  },
+                ),
+              ],
+              selectedIndex: _selectedIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(

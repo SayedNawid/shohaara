@@ -244,15 +244,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    width: 350,
-                    height: 215,
-                    alignment: Alignment.centerRight,
-                    child: ListView(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: ListTile(
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Container(
+                      width: 350,
+                      height: 215,
+                      alignment: Alignment.centerRight,
+                      child: ListView(
+                        children: [
+                          ListTile(
                             leading: Icon(
                               Icons.bookmark_outlined,
                               color: kPrimaryColor,
@@ -266,50 +266,50 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             onTap: () {},
                           ),
-                        ),
-                        ListTile(
-                          leading: Icon(
-                            Icons.info_rounded,
-                            color: kPrimaryColor,
+                          ListTile(
+                            leading: Icon(
+                              Icons.info_rounded,
+                              color: kPrimaryColor,
+                            ),
+                            title: Text(
+                              "درباره شعراء",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Vazir",
+                                  color: kPrimaryColor),
+                            ),
+                            onTap: () {},
                           ),
-                          title: Text(
-                            "درباره شعراء",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Vazir",
-                                color: kPrimaryColor),
+                          ListTile(
+                            leading: Icon(
+                              Icons.rule,
+                              color: kPrimaryColor,
+                            ),
+                            title: Text(
+                              "قوانین و شرایط",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Vazir",
+                                  color: kPrimaryColor),
+                            ),
+                            onTap: () {},
                           ),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          leading: Icon(
-                            Icons.rule,
-                            color: kPrimaryColor,
-                          ),
-                          title: Text(
-                            "قوانین و شرایط",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Vazir",
-                                color: kPrimaryColor),
-                          ),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          leading: Icon(
-                            Icons.settings,
-                            color: kPrimaryColor,
-                          ),
-                          title: Text(
-                            "تنظیمات",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Vazir",
-                                color: kPrimaryColor),
-                          ),
-                          onTap: () {},
-                        )
-                      ],
+                          ListTile(
+                            leading: Icon(
+                              Icons.settings,
+                              color: kPrimaryColor,
+                            ),
+                            title: Text(
+                              "تنظیمات",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Vazir",
+                                  color: kPrimaryColor),
+                            ),
+                            onTap: () {},
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Container(

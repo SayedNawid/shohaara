@@ -15,7 +15,7 @@ void main() async {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: OnBoardingScreen(),
+    home: const OnBoardingScreen(),
   ));
 }
 
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       body: MyApp(),
     );

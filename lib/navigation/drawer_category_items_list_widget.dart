@@ -25,7 +25,7 @@ class DrawerCategoryItemsListWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 title,

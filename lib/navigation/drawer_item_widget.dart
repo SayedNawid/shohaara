@@ -31,12 +31,13 @@ class DrawerItemWidget extends StatelessWidget {
               )
             : const BoxDecoration(),
         child: ListTile(
-          leading: Icon(
+          trailing: Icon(
             icon,
             color: Theme.of(context).iconTheme.color,
           ),
           title: Text(
             title,
+            textAlign: TextAlign.end,
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),

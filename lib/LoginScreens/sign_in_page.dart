@@ -9,6 +9,7 @@ import 'components/button_confirm.dart';
 import 'components/rich_text_class.dart';
 import 'components/rounded_input_field.dart';
 import 'components/rounded_pasword_field.dart';
+import 'package:shohaara/FireBase/Users.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -18,6 +19,13 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+
+  
+  String username = '';
+  String password = '';
+  Future<void> signIn() async {
+  
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +122,9 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(
                   height: 15,
                 ),
-                ButtonConfirm(),
+                ButtonConfirm(
+                  onPressed: () {},
+                ),
                 Container(
                   alignment: Alignment.bottomCenter,
                   width: 300,

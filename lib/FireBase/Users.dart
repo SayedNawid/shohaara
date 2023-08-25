@@ -12,6 +12,7 @@ Future<void> addUserToFirebaseDatabase(
         .child('Users/${userModel.getUserId()}')
         .set(userModel.toMap());
     whenComplete();
+    print('complete');
   } catch (error) {
     onError(error.toString());
   }

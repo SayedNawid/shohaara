@@ -146,38 +146,22 @@ class _SignUpPageState extends State<SignUpPage> {
                     RoundedInputField(
                       hintText: "نام کاربری",
                       iconData: FontAwesomeIcons.user,
-                      onChanged: (value) {
-                        setState(() {
-                          name = value;
-                        });
-                      },
+                      onChanged: (value) {},
                     ),
                     RoundedInputField(
                       hintText: "نام فامیلی",
                       iconData: FontAwesomeIcons.userCheck,
-                      onChanged: (value) {
-                        setState(() {
-                          lastName = value;
-                        });
-                      },
+                      onChanged: (value) {},
                     ),
                     RoundedStarField(
                       hintText: "شماره مبایل",
                       iconData: FontAwesomeIcons.phone,
-                      onChanged: (value) {
-                        setState(() {
-                          phoneNumber = value;
-                        });
-                      },
+                      onChanged: (value) {},
                     ),
                     RoundedInputField(
                       hintText: "ایمیل آدرس",
                       iconData: FontAwesomeIcons.mailchimp,
-                      onChanged: (value) {
-                        setState(() {
-                          email = value;
-                        });
-                      },
+                      onChanged: (value) {},
                     ),
                     RoundedUserNameField(
                         onChanged: (value) {
@@ -186,7 +170,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           });
                         },
                         hintText: "نام کاربری",
-                        iconData: FontAwesomeIcons.userGear),
+                        iconData: Icons.person_3),
                     RoundedUserNameField(
                       hintText: "رمز عبور",
                       iconData: FontAwesomeIcons.lockOpen,
@@ -208,11 +192,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 8,
                     ),
-                    ButtonConfirm(
-                      onPressed: () {
-                        signUp();
-                      },
-                    ),
+                    ButtonConfirm(),
                     Container(
                       alignment: Alignment.bottomCenter,
                       width: 300,

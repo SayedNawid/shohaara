@@ -98,7 +98,7 @@ Future<void> editUserFromFirebaseDatabase(
   try {
     var userModels = await databaseReference.child('Users').get();
     if (userModels.exists) {
-      UserModel userModel = UserModel();
+      UserModel userModel = UserModel(userEmail: '');
       var userModelsMap = userModels.value as Map;
       for (var userModel in userModelsMap.values) {
         userModel = UserModel.fromMap(userModel);
@@ -131,7 +131,7 @@ Future<void> deleteUserFromFirebaseDatabase(
 Future<void> deleteUserFromFirebase(String userModelId) async {
   var userModels = await databaseReference.child('Users').get();
   if (userModels.exists) {
-    UserModel userModel = UserModel();
+    UserModel userModel = new UserModel(userEmail: userEmail);
     var userModelsMap = userModels.value as Map;
     for (var userModel in userModelsMap.values) {
       userModel = UserModel.fromMap(userModel);

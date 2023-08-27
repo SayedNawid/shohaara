@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import '../../constants.dart';
 import 'TextFieldContainer.dart';
 
 class RoundedInputPassword extends StatelessWidget {
-  final ValueChanged<String> onChanged;
+   final ValueChanged<String> onChanged;
+  
   final String hintText;
   const RoundedInputPassword(
-      {super.key, required this.onChanged, required this.hintText});
+      {super.key,
+       required this.onChanged,
+      required this.hintText});
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
-        onChanged: onChanged,
+         onChanged: onChanged,
         showCursor: true,
         cursorColor: kPrimaryColor,
         cursorHeight: 25,

@@ -1,16 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shohaara/FireBase/Users.dart';
 import 'package:shohaara/LoginScreens/components/button_confirm.dart';
 import 'package:shohaara/LoginScreens/components/rounded_username_field.dart';
 import 'package:shohaara/LoginScreens/components/starField.dart';
 import 'package:shohaara/main_page.dart';
-import 'package:shohaara/packages/UserModel.dart';
 import '../constants.dart';
 import 'components/rounded_input_field.dart';
+import 'package:shohaara/FireBase/AuthServices.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -20,6 +17,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final AuthService _authService = AuthService();
   String name = '';
   String lastName = '';
   String phoneNumber = '';
@@ -28,29 +26,26 @@ class _SignUpPageState extends State<SignUpPage> {
   String password = '';
   String retypePassword = '';
 
-  Future<void> signUp() async {
-    UserModel newUser = UserModel.init(
-      userId: '',
-      userFirstName: username,
-      userLastName: lastName,
-      userPhone: phoneNumber,
-      userProfileUrl: '',
-      userPassword: password,
-      user_userName: username,
-      userEmail: email,
+  
+
+  void _handleSuccess() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MainPage()),
     );
-    print(newUser.getUserFirstName());
-    await addUserToFirebaseDatabase(
-      userModel: newUser,
-      whenComplete: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (ctx) => const MainPage()),
-        );
-      },
-      onError: (error) {
-        print(error);
-      },
+  }
+
+  void _handleError(String error) {}
+  Future<void> signUp() async {
+    await _authService.signUpWithEmailAndPassword(
+      name: name,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      email: email,
+      username: username,
+      password: password,
+      whenComplete: _handleSuccess,
+      onError: _handleError,
     );
   }
 

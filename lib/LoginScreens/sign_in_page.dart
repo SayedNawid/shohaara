@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shohaara/FireBase/AuthServices.dart';
 import 'package:shohaara/LoginScreens/sign_up_page.dart';
 import 'package:shohaara/main_page.dart';
 
@@ -19,13 +20,26 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final AuthService _authService = AuthService();
 
-  
-  String username = '';
+  String email = '';
   String password = '';
   Future<void> signIn() async {
-  
+    _authService.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+      whenComplete: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MainPage()),
+        );
+      },
+      onError: (error) {
+        print(error);
+      },
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +116,7 @@ class _SignInPageState extends State<SignInPage> {
                   height: 30,
                   child: const Text(
                     textAlign: TextAlign.center,
-                    "نام کاربری و رمز عبور تان را وارد کنید",
+                    "ایمیل آدرس و رمز عبور تان را وارد کنید",
                     style: const TextStyle(
                         fontSize: 16,
                         fontFamily: "Vazir",
@@ -111,19 +125,29 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
                 RoundedInputField(
-                  hintText: "نام کاربری",
+                  hintText: "ایمیل",
                   iconData: FontAwesomeIcons.user,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    setState(() {
+                      email = value;
+                    });
+                  },
                 ),
                 RoundedInputPassword(
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    setState(() {
+                      password = value;
+                    });
+                  },
                   hintText: "رمز عبور",
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 ButtonConfirm(
-                  onPressed: () {},
+                  onPressed: () {
+                    signIn();
+                  },
                 ),
                 Container(
                   alignment: Alignment.bottomCenter,

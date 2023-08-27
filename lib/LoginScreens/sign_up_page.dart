@@ -26,8 +26,6 @@ class _SignUpPageState extends State<SignUpPage> {
   String password = '';
   String retypePassword = '';
 
-  
-
   void _handleSuccess() {
     Navigator.push(
       context,
@@ -192,7 +190,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 8,
                     ),
-                    ButtonConfirm(),
+                    ButtonConfirm(
+                      onPressed: () {
+                        signUp();
+                      },
+                    ),
                     Container(
                       alignment: Alignment.bottomCenter,
                       width: 300,

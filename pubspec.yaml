@@ -20,16 +20,13 @@ dependencies:
   cloud_firestore: ^4.8.4
   firebase_storage: ^11.2.5
   fluttericon: ^2.0.0
-<<<<<<< HEAD
   slide_to_act: ^2.0.1
   firebase_auth: ^4.8.0
   # image_picker: ^1.0.2
-=======
   rive: ^0.11.14
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.3
-  firebase_auth: ^4.8.0
->>>>>>> 81a7b5ebece7ce25699b86327127f2ba36b4deb4
+
 
 
 dev_dependencies:

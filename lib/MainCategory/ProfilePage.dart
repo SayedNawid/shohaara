@@ -5,7 +5,6 @@ import 'package:line_icons/line_icons.dart';
 import 'package:shohaara/main_page.dart';
 
 import '../constants.dart';
-import '../navigation/sideMenu.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,7 +20,8 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Column(
         children: [
           Container(
-            height: 65,
+            height: 60,
+            width: 340,
             child: Card(
               shadowColor: kPrimaryColor,
               elevation: 4,
@@ -39,9 +39,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
           Container(
             padding: EdgeInsets.all(20),
             child: Row(
@@ -54,8 +51,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100))),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ProfilePage()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => ProfilePage()));
                   },
                   icon: Icon(
                     FontAwesomeIcons.userEdit,
@@ -190,12 +187,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           Container(
-            height: 180,
+            height: 170,
             child: Image.asset("images/Resumefolderbro.png"),
           ),
-          SizedBox(
-            height: 20,
-          )
         ],
       ),
     );

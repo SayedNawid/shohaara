@@ -27,18 +27,13 @@ class DrawerCategoryItemsListWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .color!
-                          .withOpacity(0.75),
-                    ),
-              ),
+              Text(title,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      color: Colors.white,
+                      fontFamily: "Vazir",
+                      fontWeight: FontWeight.bold)),
               const SizedBox(
-                height: 10,
+                height: 16,
               ),
               ...List.generate(itemsList.length, (index) {
                 return DrawerItemWidget(

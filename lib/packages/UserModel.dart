@@ -19,7 +19,7 @@ class UserModel {
   late final String _user_userName;
   late final String _userEmail;
 
-  UserModel();
+  UserModel({required String userEmail});
 
   UserModel.init({
     required String userId,

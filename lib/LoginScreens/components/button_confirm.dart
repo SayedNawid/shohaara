@@ -6,16 +6,16 @@ import '../../constants.dart';
 class ButtonConfirm extends StatelessWidget {
   const ButtonConfirm({
     super.key,
+    required this.onPressed,
   });
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MainPage()));
-        },
+        onPressed: onPressed,
         child: Text(
           "تآیید",
           style: const TextStyle(

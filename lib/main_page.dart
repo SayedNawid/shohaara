@@ -5,10 +5,9 @@ import 'package:line_icons/line_icons.dart';
 import 'package:shohaara/MainCategory/CommentPage.dart';
 import 'package:shohaara/MainCategory/CreatePost.dart';
 import 'package:shohaara/MainCategory/ProfilePage.dart';
-import 'package:shohaara/MainCategory/search_post.dart';
 import 'package:shohaara/constants.dart';
 import 'package:shohaara/navigation/custom_drawer_widget.dart';
-import 'package:shohaara/navigation/sideMenu.dart';
+
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -247,10 +246,10 @@ class HomeScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(100))),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfilePage()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => ProfilePage()));
                               },
                               icon: Icon(
                                 Icons.more_vert_outlined,

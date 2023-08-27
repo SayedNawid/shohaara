@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shohaara/constants.dart';
 
 class DrawerItemWidget extends StatelessWidget {
   const DrawerItemWidget({
@@ -26,19 +27,20 @@ class DrawerItemWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 5),
         decoration: index == currentDrawerIndex
             ? BoxDecoration(
-                color: Colors.white,
+                color: kSecondrayColor,
                 borderRadius: BorderRadius.circular(10),
               )
             : const BoxDecoration(),
         child: ListTile(
           trailing: Icon(
             icon,
-            color: Theme.of(context).iconTheme.color,
+            color: Colors.white,
           ),
           title: Text(
             title,
             textAlign: TextAlign.end,
-            style: Theme.of(context).textTheme.titleSmall,
+            style: TextStyle(
+                fontFamily: "Vazir", fontSize: 16, color: Colors.white),
           ),
         ),
       ),

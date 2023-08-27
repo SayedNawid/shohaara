@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shohaara/packages/CommentModel.dart';
+import 'package:shohaara/models/CommentModel.dart';
 
 import 'firebase_realtime_database.dart';
 

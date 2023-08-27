@@ -1,7 +1,64 @@
-import 'package:flutter/material.dart';
-
-import '../packages/UserModel.dart';
+import '../models/UserModel.dart';
 import 'firebase_realtime_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+Future<User?> signUpWithEmailAndPassword({
+  required String email,
+  required String password,
+  required Function() whenComplete,
+  required Function(String) onError,
+}) async {
+  try {
+    final authResult = await _auth.createUserWithEmailAndPassword(
+      email: email.trim(),
+      password: password,
+    );
+
+    if (authResult.user != null) {
+      whenComplete();
+      return authResult.user;
+    } else {
+      onError('User creation failed');
+      return null;
+    }
+  } catch (e) {
+    onError(e.toString());
+    return null;
+  }
+}
+
+Future<User?> signInWithEmailAndPassword({
+  required String email,
+  required String password,
+  required Function() whenComplete,
+  required Function(String) onError,
+}) async {
+  try {
+    final authResult = await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    if (authResult.user != null) {
+      whenComplete();
+      return authResult.user;
+    } else {
+      onError('Sign in failed');
+      return null;
+    }
+  } catch (e) {
+    onError(e.toString());
+    return null;
+  }
+}
+
+Future<void> signOut() async {
+  await _auth.signOut();
+}
 
 Future<void> addUserToFirebaseDatabase(
     {required UserModel userModel,
@@ -12,6 +69,7 @@ Future<void> addUserToFirebaseDatabase(
         .child('Users/${userModel.getUserId()}')
         .set(userModel.toMap());
     whenComplete();
+    print('complete');
   } catch (error) {
     onError(error.toString());
   }

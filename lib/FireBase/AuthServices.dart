@@ -84,7 +84,6 @@ class AuthService {
           onError('User data not found');
           return 'User data not found';
         }
-        return null;
       } else {
         print('There is some error');
         onError('Sign-in failed');

@@ -1,11 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shohaara/FireBase/AuthServices.dart';
 import 'package:shohaara/LoginScreens/sign_up_page.dart';
 import '../constants.dart';
+import '../main_page.dart';
 import 'components/button_confirm.dart';
 import 'components/rounded_input_field.dart';
 import 'components/rounded_pasword_field.dart';
+import 'package:shohaara/FireBase/Users.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -15,7 +18,33 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  
+
+  final AuthService _authService = AuthService();
+
+  String email = '';
+  String password = '';
+  Future<void> signIn() async {
+    _authService.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+      whenComplete: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MainPage()),
+        );
+      },
+      onError: (error) {
+        print(error);
+      },
+    );
+  }
+
+
+  final _formKey = GlobalKey<FormState>();
+  final _username = TextEditingController();
+  final _password = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -72,20 +101,54 @@ class _SignInPageState extends State<SignInPage> {
                       height: 300,
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.topCenter,
-                    width: 300,
-                    height: 40,
-                    child: const Text(
-                      textAlign: TextAlign.center,
-                      "خوش آمدی",
-                      style: const TextStyle(
-                          fontSize: 26,
-                          fontFamily: "Vazir",
-                          fontWeight: FontWeight.bold,
-                          color: kPrimaryColor),
-                    ),
+                ]
+                ),
+               Container(
+                  alignment: Alignment.topCenter,
+                  width: 300,
+                  height: 30,
+                  child: const Text(
+                    textAlign: TextAlign.center,
+                    "ایمیل آدرس و رمز عبور تان را وارد کنید",
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: "Vazir",
+                        fontWeight: FontWeight.w400,
+                        color: kSecondrayColor),
                   ),
+                ),
+               RoundedInputField(
+                  hintText: "ایمیل",
+                  iconData: FontAwesomeIcons.user,
+                  onChanged: (value) {
+                    setState(() {
+                      email = value;
+                    });
+                  },
+                ),
+                RoundedInputPassword(
+                  onChanged: (value) {
+                    setState(() {
+                      password = value;
+                    });
+                  },
+                  hintText: "رمز عبور",
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                ButtonConfirm(
+                  onPressed: () {
+                    signIn();
+                  },
+                ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  width: 300,
+                  height: 50,
+                  child: RichText(
+                    text: TextSpan(
+                
                   Container(
                     alignment: Alignment.topCenter,
                     width: 300,
@@ -157,10 +220,12 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                   ),
-                ],
+                
               ),
             ),
           ),
+        ),
+      ),
         ),
       ),
     );

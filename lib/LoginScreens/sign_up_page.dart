@@ -7,6 +7,7 @@ import 'package:shohaara/LoginScreens/components/starField.dart';
 import 'package:shohaara/main_page.dart';
 import '../constants.dart';
 import 'components/rounded_input_field.dart';
+import 'package:shohaara/FireBase/AuthServices.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,6 +17,38 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final AuthService _authService = AuthService();
+  String name = '';
+  String lastName = '';
+  String phoneNumber = '';
+  String email = '';
+  String username = '';
+  String password = '';
+  String retypePassword = '';
+
+  
+
+  void _handleSuccess() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MainPage()),
+    );
+  }
+
+  void _handleError(String error) {}
+  Future<void> signUp() async {
+    await _authService.signUpWithEmailAndPassword(
+      name: name,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      email: email,
+      username: username,
+      password: password,
+      whenComplete: _handleSuccess,
+      onError: _handleError,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +61,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   padding: const EdgeInsets.only(left: 10, top: 10),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundImage: AssetImage("images/profile.png"),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Align(
                         alignment: Alignment.topRight,
                         child: ElevatedButton.icon(
@@ -48,11 +81,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               FontAwesomeIcons.arrowRight,
                               color: kSecondrayColor,
                             ),
-                            label: Text("")),
+                            label: const Text("")),
                       ),
                     ],
                   ),
@@ -70,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               Shadow(
                                 color: kPrimaryColor.withOpacity(0.4),
                                 blurRadius: 18.0,
-                                offset: Offset(5.0, 7.0),
+                                offset: const Offset(5.0, 7.0),
                               ),
                             ],
                             fontSize: 50,
@@ -79,7 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: kPrimaryColor),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Container(
@@ -112,44 +145,54 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     RoundedInputField(
                       hintText: "نام کاربری",
-                      iconData: Icons.person,
+                      iconData: FontAwesomeIcons.user,
                       onChanged: (value) {},
                     ),
                     RoundedInputField(
                       hintText: "نام فامیلی",
-                      iconData: Icons.supervised_user_circle,
+                      iconData: FontAwesomeIcons.userCheck,
                       onChanged: (value) {},
                     ),
                     RoundedStarField(
                       hintText: "شماره مبایل",
-                      iconData: Icons.phone_android_rounded,
+                      iconData: FontAwesomeIcons.phone,
                       onChanged: (value) {},
                     ),
                     RoundedInputField(
                       hintText: "ایمیل آدرس",
-                      iconData: Icons.email_rounded,
+                      iconData: FontAwesomeIcons.mailchimp,
                       onChanged: (value) {},
                     ),
                     RoundedUserNameField(
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          setState(() {
+                            username = value;
+                          });
+                        },
                         hintText: "نام کاربری",
                         iconData: Icons.person_3),
                     RoundedUserNameField(
                       hintText: "رمز عبور",
                       iconData: FontAwesomeIcons.lockOpen,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          password = value;
+                        });
+                      },
                     ),
                     RoundedUserNameField(
                       hintText: "تآیید رمز عبور",
                       iconData: FontAwesomeIcons.lock,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          retypePassword = value;
+                        });
+                      },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
-                    ButtonConfirm(
-                      onPressed: (){},
-                    ),
+                    ButtonConfirm(),
                     Container(
                       alignment: Alignment.bottomCenter,
                       width: 300,
@@ -175,13 +218,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (ctx) => MainPage(),
+                                        builder: (ctx) => const MainPage(),
                                       ));
                                 },
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: "شوم ",
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: "Vazir",
                                   fontWeight: FontWeight.w500,

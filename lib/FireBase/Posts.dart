@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../packages/PostModel.dart';
+import '../models/PostModel.dart';
 import 'firebase_realtime_database.dart';
 
 Future<void> addPostToFirebaseDatabase(

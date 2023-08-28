@@ -192,7 +192,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 8,
                     ),
-                    ButtonConfirm(),
+                    ButtonConfirm(onPressed: () {  },),
                     Container(
                       alignment: Alignment.bottomCenter,
                       width: 300,

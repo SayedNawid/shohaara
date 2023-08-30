@@ -101,9 +101,7 @@ class _SignInPageState extends State<SignInPage> {
                       height: 300,
                     ),
                   ),
-                ]
-                ),
-               Container(
+                  Container(
                   alignment: Alignment.topCenter,
                   width: 300,
                   height: 30,
@@ -117,7 +115,7 @@ class _SignInPageState extends State<SignInPage> {
                         color: kSecondrayColor),
                   ),
                 ),
-               RoundedInputField(
+                 RoundedInputField(
                   hintText: "ایمیل",
                   iconData: FontAwesomeIcons.user,
                   onChanged: (value) {
@@ -138,48 +136,12 @@ class _SignInPageState extends State<SignInPage> {
                   height: 15,
                 ),
                 ButtonConfirm(
+                  text: "تآیید",
                   onPressed: () {
                     signIn();
                   },
                 ),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  width: 300,
-                  height: 50,
-                  child: RichText(
-                    text: TextSpan(
-                
-                  Container(
-                    alignment: Alignment.topCenter,
-                    width: 300,
-                    height: 30,
-                    child: const Text(
-                      textAlign: TextAlign.center,
-                      "نام کاربری و رمز عبور تان را وارد کنید",
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontFamily: "Vazir",
-                          fontWeight: FontWeight.w400,
-                          color: kSecondrayColor),
-                    ),
-                  ),
-                  RoundedInputField(
-                   
-                    hintText: "نام کاربری",
-                    iconData: Icons.person,
-                    onChanged: (value){},
-                  ),
-                  RoundedInputPassword(
-                    onChanged: (value){},
-                    hintText: "رمز عبور",
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  ButtonConfirm(
-                    onPressed: (){},
-                  ),
-                  Container(
+                 Container(
                     alignment: Alignment.bottomCenter,
                     width: 300,
                     height: 50,
@@ -216,16 +178,14 @@ class _SignInPageState extends State<SignInPage> {
                                 fontWeight: FontWeight.w500,
                                 color: kPrimaryColor),
                           )
-                        ],
+                        ]
                       ),
                     ),
-                  ),
-                
+                  ),   
+                ]
               ),
             ),
           ),
-        ),
-      ),
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/LoginScreens/sign_up_page.dart';
-import 'package:shohaara/SpalshScreens/welcomePage.dart';
 import 'package:shohaara/main_page.dart';
 import '../constants.dart';
 

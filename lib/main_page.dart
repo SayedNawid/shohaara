@@ -5,11 +5,12 @@ import 'package:line_icons/line_icons.dart';
 import 'package:shohaara/MainCategory/CommentPage.dart';
 import 'package:shohaara/MainCategory/CreatePost.dart';
 import 'package:shohaara/MainCategory/ProfilePage.dart';
+import 'package:shohaara/MainCategory/chat_page.dart';
 import 'package:shohaara/constants.dart';
 import 'package:shohaara/navigation/custom_drawer_widget.dart';
 
 import 'MainCategory/home_scrren.dart';
-
+import 'MainCategory/peot_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -23,12 +24,8 @@ class _MainPageState extends State<MainPage> {
   int _selectedDrawerIndex = 0;
   int _selectedIndex = 3;
   List screens = [
-    Center(
-      child: Text('data'),
-    ),
-    Center(
-      child: Text('data'),
-    ),
+    Chatpage(),
+    PeotPage(),
     ProfilePage(),
     HomeScreen(),
   ];
@@ -45,7 +42,6 @@ class _MainPageState extends State<MainPage> {
                 _key.currentState!.closeEndDrawer();
               });
             }),
-        
         bottomNavigationBar: Container(
           margin: EdgeInsets.all(18),
           decoration: BoxDecoration(
@@ -105,9 +101,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         body: Column(
-          
           children: [
-           
             Padding(
               padding: const EdgeInsets.all(6),
               child: Row(
@@ -152,9 +146,8 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-             screens[_selectedIndex],
+            screens[_selectedIndex],
           ],
-          
         ),
       ),
     );

@@ -50,10 +50,7 @@ class _EditProfileState extends State<EditProfile> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100))),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (cnotext) => ProfilePage()));
+                      Navigator.pop(context);
                     },
                     icon: const Icon(
                       Icons.arrow_forward,

@@ -9,7 +9,7 @@ List<Map<String, dynamic>> dashboardDrawerItemsList = [
     'icon': Icons.bookmark,
     'title': 'ذخیره شده ها',
   },
-  {'category_index': 1, 'icon': Icons.info_rounded, 'title': 'درباره شعراء'},
+  {'category_index': 1, 'icon': Icons.info_rounded, 'title': 'درباره شعراء',},
   {'category_index': 1, 'icon': Icons.rule, 'title': 'قوانین و شرایط'},
   {'category_index': 1, 'icon': Icons.settings, 'title': 'تنظیمات'},
 ];

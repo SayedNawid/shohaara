@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shohaara/MainCategory/edit_profile.dart';
 import '../constants.dart';
 import 'CommentPage.dart';
 import 'CreatePost.dart';
@@ -67,10 +68,10 @@ class HomeScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(100))),
                               onPressed: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => ProfilePage()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EditProfile()));
                               },
                               icon: Icon(
                                 Icons.more_vert_outlined,

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:shohaara/main_page.dart';
-
+import 'package:shohaara/MainCategory/edit_profile.dart';
 import '../constants.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -16,179 +13,180 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return SafeArea(
       child: Column(
         children: [
-          Container(
-            height: 60,
-            width: 340,
-            child: Card(
-              shadowColor: kPrimaryColor,
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Center(
-                child: Text(
-                  "حساب کابری",
-                  style: TextStyle(
-                      color: kPrimaryColor,
-                      fontFamily: "Vazir",
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(20),
-            child: Row(
-              children: [
-                IconButton(
-                  style: IconButton.styleFrom(
-                      minimumSize: const Size(35, 55),
-                      elevation: 0,
-                      backgroundColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100))),
-                  onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => ProfilePage()));
-                  },
-                  icon: Icon(
-                    FontAwesomeIcons.userEdit,
-                    color: kPrimaryColor,
+          Column(
+            children: [
+              Container(
+                height: 60,
+                width: 340,
+                child: Card(
+                  shadowColor: kPrimaryColor,
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  child: const Center(
+                    child: Text(
+                      "حساب کابری",
+                      style: TextStyle(
+                          color: kPrimaryColor,
+                          fontFamily: "Vazir",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-                Spacer(),
-                Column(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Row(
                   children: [
-                    Text(
-                      "محمد احسان یارخیل ",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "Vazir",
-                          color: kPrimaryColor),
+                    IconButton(
+                      style: IconButton.styleFrom(
+                          minimumSize: const Size(35, 55),
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100))),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditProfile()));
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.userEdit,
+                        color: kPrimaryColor,
+                      ),
                     ),
-                    Text(
-                      "+93 795 461 668",
-                      style: TextStyle(fontSize: 12, color: kPrimaryColor),
+                    const Spacer(),
+                    const Column(
+                      children: [
+                        Text(
+                          "محمد احسان یارخیل ",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: "Vazir",
+                              color: kPrimaryColor),
+                        ),
+                        Text(
+                          "+93 795 461 668",
+                          style:
+                              TextStyle(fontSize: 12, color: kPrimaryColor),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    const CircleAvatar(
+                      backgroundImage: AssetImage("images/profile.png"),
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: 8,
-                ),
-                CircleAvatar(
-                  backgroundImage: AssetImage("images/profile.png"),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: 1,
-            width: 340,
-            color: kPrimaryColor,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: Icon(
-                      Icons.bookmark_outlined,
-                      color: kPrimaryColor,
-                    ),
-                    title: Text(
-                      "ذخیره شده ها",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "Vazir",
-                          color: kPrimaryColor),
-                    ),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.info_rounded,
-                      color: kPrimaryColor,
-                    ),
-                    title: Text(
-                      "درباره شعراء",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "Vazir",
-                          color: kPrimaryColor),
-                    ),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.rule,
-                      color: kPrimaryColor,
-                    ),
-                    title: Text(
-                      "قوانین و شرایط",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "Vazir",
-                          color: kPrimaryColor),
-                    ),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.settings,
-                      color: kPrimaryColor,
-                    ),
-                    title: Text(
-                      "تنظیمات",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "Vazir",
-                          color: kPrimaryColor),
-                    ),
-                    onTap: () {},
-                  )
-                ],
               ),
-            ),
-          ),
-          Container(
-            child: ElevatedButton(
-              onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: ((context) => SignInPage())));
-              },
-              child: Text(
-                "خروج از حساب کاربری",
-                style: const TextStyle(
-                    color: kPrimaryColor, fontFamily: "Vazir", fontSize: 18),
+              Container(
+                height: 1,
+                width: 340,
+                color: kPrimaryColor,
               ),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                backgroundColor: Colors.white,
-                minimumSize: const Size(350, 50),
-                elevation: 0,
-                side: BorderSide(
-                  color: kPrimaryColor,
-                ),
-                shadowColor: kPrimaryColor,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(
+                        Icons.bookmark_outlined,
+                        color: kPrimaryColor,
+                      ),
+                      title: const Text(
+                        "ذخیره شده ها",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: "Vazir",
+                            color: kPrimaryColor),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.info_rounded,
+                        color: kPrimaryColor,
+                      ),
+                      title: const Text(
+                        "درباره شعراء",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: "Vazir",
+                            color: kPrimaryColor),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.rule,
+                        color: kPrimaryColor,
+                      ),
+                      title: const Text(
+                        "قوانین و شرایط",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: "Vazir",
+                            color: kPrimaryColor),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.settings,
+                        color: kPrimaryColor,
+                      ),
+                      title: const Text(
+                        "تنظیمات",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: "Vazir",
+                            color: kPrimaryColor),
+                      ),
+                      onTap: () {},
+                    )
+                  ],
                 ),
               ),
-            ),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: ((context) => SignInPage())));
+                },
+                child: const Text(
+                  "خروج از حساب کاربری",
+                  style: TextStyle(
+                      color: kPrimaryColor,
+                      fontFamily: "Vazir",
+                      fontSize: 18),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  backgroundColor: Colors.white,
+                  minimumSize: const Size(350, 50),
+                  elevation: 0,
+                  side: const BorderSide(
+                    color: kPrimaryColor,
+                  ),
+                  shadowColor: kPrimaryColor,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                  ),
+                ),
+              ),
+            ],
           ),
-          Container(
+          Image.asset(
+            "images/Resumefolderbro.png",
             height: 170,
-            child: Image.asset("images/Resumefolderbro.png"),
           ),
         ],
       ),

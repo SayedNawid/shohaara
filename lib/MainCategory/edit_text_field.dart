@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../constants.dart';
-import 'TextFieldContainer.dart';
+import '../constants.dart';
 
-class RoundedStarField extends StatelessWidget {
-  final ValueChanged<String> onChanged;
+class edit_text_field extends StatelessWidget {
   final String hintText;
   final IconData iconData;
-  const RoundedStarField({
+  final ValueChanged<String> onChanged;
+  const edit_text_field({
     super.key,
-    required this.onChanged,
     required this.hintText,
     required this.iconData,
+    required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextFieldContainer(
+    return Padding(
+      padding: const EdgeInsets.only(left: 35, right: 35),
       child: TextField(
-        onChanged: onChanged,
         showCursor: true,
         cursorColor: kPrimaryColor,
         cursorHeight: 25,
-        obscureText: false,
-        keyboardType: TextInputType.number,
         style: TextStyle(
             color: kPrimaryColor,
             fontFamily: "Vazir",
@@ -39,12 +35,12 @@ class RoundedStarField extends StatelessWidget {
             color: kPrimaryColor,
           ),
           prefixIcon: Icon(
-            size: 15,
-            FontAwesomeIcons.star,
+            Icons.mode_edit,
+            size: 14,
             color: kPrimaryColor,
           ),
           hintText: hintText,
-          hintStyle: TextStyle(fontFamily: "Vazir", color: kPrimaryColor),
+          hintStyle: TextStyle(fontFamily: "Vazir", color: kSecondrayColor),
           border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50),

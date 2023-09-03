@@ -5,9 +5,9 @@ import 'package:shohaara/LoginScreens/components/button_confirm.dart';
 import 'package:shohaara/LoginScreens/components/rounded_username_field.dart';
 import 'package:shohaara/LoginScreens/components/starField.dart';
 import 'package:shohaara/main_page.dart';
+import 'package:shohaara/services/api_service.dart';
 import '../constants.dart';
 import 'components/rounded_input_field.dart';
-import 'package:shohaara/FireBase/AuthServices.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -17,7 +17,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final AuthService _authService = AuthService();
   String name = '';
   String lastName = '';
   String phoneNumber = '';
@@ -33,18 +32,24 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  void _handleError(String error) {}
   Future<void> signUp() async {
-    await _authService.signUpWithEmailAndPassword(
-      name: name,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-      email: email,
-      username: username,
-      password: password,
-      whenComplete: _handleSuccess,
-      onError: _handleError,
-    );
+    print(name);
+    try {
+      await ApiService.signUp(
+        firstName: name,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: email,
+        username: username,
+        password: password,
+        whenComplete: _handleSuccess,
+        onError: (error) {
+          print('Sign up error: $error');
+        },
+      );
+    } catch (e) {
+      print('An error occurred: $e');
+    }
   }
 
   @override
@@ -144,22 +149,38 @@ class _SignUpPageState extends State<SignUpPage> {
                     RoundedInputField(
                       hintText: "نام کاربری",
                       iconData: FontAwesomeIcons.user,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          name = value;
+                        });
+                      },
                     ),
                     RoundedInputField(
                       hintText: "نام فامیلی",
                       iconData: FontAwesomeIcons.userCheck,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          lastName = value;
+                        });
+                      },
                     ),
                     RoundedStarField(
                       hintText: "شماره مبایل",
                       iconData: FontAwesomeIcons.phone,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          phoneNumber = value;
+                        });
+                      },
                     ),
                     RoundedInputField(
                       hintText: "ایمیل آدرس",
                       iconData: FontAwesomeIcons.mailchimp,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          email = value;
+                        });
+                      },
                     ),
                     RoundedUserNameField(
                         onChanged: (value) {

@@ -1,14 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shohaara/FireBase/AuthServices.dart';
 import 'package:shohaara/LoginScreens/sign_up_page.dart';
+import 'package:shohaara/main_page.dart';
+
 import '../constants.dart';
 import '../main_page.dart';
+import '../services/api_service.dart';
 import 'components/button_confirm.dart';
 import 'components/rounded_input_field.dart';
 import 'components/rounded_pasword_field.dart';
-import 'package:shohaara/FireBase/Users.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -19,12 +20,10 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
 
-  final AuthService _authService = AuthService();
-
   String email = '';
   String password = '';
   Future<void> signIn() async {
-    _authService.signInWithEmailAndPassword(
+    ApiService.login(
       email: email,
       password: password,
       whenComplete: () {
@@ -38,11 +37,6 @@ class _SignInPageState extends State<SignInPage> {
       },
     );
   }
-
-
-  final _formKey = GlobalKey<FormState>();
-  final _username = TextEditingController();
-  final _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

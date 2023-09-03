@@ -18,7 +18,6 @@ class RoundedStarField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      
       child: TextField(
         onChanged: onChanged,
         showCursor: true,
@@ -34,32 +33,32 @@ class RoundedStarField extends StatelessWidget {
         textAlign: TextAlign.right,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(top: 20),
-            suffixIcon: Icon(
-              size: 20,
-              iconData,
-              color: kPrimaryColor,
-            ),
-            prefixIcon: Icon(
-              size: 15,
-              FontAwesomeIcons.star,
-              color: kPrimaryColor,
-            ),
-            hintText: hintText,
-            hintStyle: TextStyle(fontFamily: "Vazir", color: kPrimaryColor),
-            border: InputBorder.none,
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(
-                  width: 2,
-                  color: kPrimaryColor,
-                )),
-                focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(
-                  width: 2,
-                  color: kPrimaryColor,
-                )),
-                ),
+          suffixIcon: Icon(
+            size: 20,
+            iconData,
+            color: kPrimaryColor,
+          ),
+          prefixIcon: Icon(
+            size: 15,
+            FontAwesomeIcons.star,
+            color: kPrimaryColor,
+          ),
+          hintText: hintText,
+          hintStyle: TextStyle(fontFamily: "Vazir", color: kPrimaryColor),
+          border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: BorderSide(
+                width: 2,
+                color: kPrimaryColor,
+              )),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: BorderSide(
+                width: 2,
+                color: kPrimaryColor,
+              )),
+        ),
       ),
     );
   }

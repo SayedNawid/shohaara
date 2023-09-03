@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+=======
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+>>>>>>> ab31a9adbddcc237e2b281563966b39869960f80
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:shohaara/MainCategory/CommentPage.dart';
-import 'package:shohaara/MainCategory/CreatePost.dart';
+// import 'package:shohaara/MainCategory/CommentPage.dart';
+// import 'package:shohaara/MainCategory/CreatePost.dart';
 import 'package:shohaara/MainCategory/ProfilePage.dart';
 import 'package:shohaara/MainCategory/chat_page.dart';
 import 'package:shohaara/constants.dart';

@@ -66,9 +66,33 @@ class _EditProfileState extends State<EditProfile> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  maxRadius: 35,
-                  backgroundImage: AssetImage("images/profile.png"),
+                Stack(
+                  children: [
+                    const CircleAvatar(
+                      maxRadius: 35,
+                      backgroundImage: AssetImage("images/profile.png"),
+                    ),
+                    Positioned(
+                        bottom: 1,
+                        right: 1,
+                        child: Container(
+                          padding: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: kPrimaryColor),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: GestureDetector(
+                            onTap: () {
+                              print('object');
+                            },
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.black,
+                              size: 16,
+                            ),
+                          ),
+                        )),
+                  ],
                 ),
                 Text(
                   "اطلاعات شخصی",

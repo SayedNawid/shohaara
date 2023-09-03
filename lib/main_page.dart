@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -40,6 +41,14 @@ class _MainPageState extends State<MainPage> {
               setState(() {
                 _selectedDrawerIndex = index;
                 _key.currentState!.closeEndDrawer();
+                print('index: $index');
+                if (index == 0) {
+                } else if (index == 1) {
+                } else if (index == 2) {
+                } else if (index == 8) {
+                  SystemNavigator.pop();
+                  
+                }
               });
             }),
         bottomNavigationBar: Container(

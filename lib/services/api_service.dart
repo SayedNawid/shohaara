@@ -6,7 +6,7 @@ import 'fetcher.dart';
 
 class ApiService {
   static const String baseUrl =
-      "https://shohaara-aep6x9o5r-bashir-danish.vercel.app/api/v1";
+      "https://shohaara-r2i7sc9sx-bashir-danish.vercel.app/api/v1";
 
   static Future<void> signUp({
     required String firstName,

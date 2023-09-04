@@ -26,8 +26,6 @@ class _EditTextFieldState extends State<EditTextField> {
   @override
   void initState() {
     super.initState();
-    print("widget.initialValue"); // Corrected: Use widget.initialValue
-    print(widget.initialValue);
     _controller = TextEditingController(text: widget.initialValue);
   }
 

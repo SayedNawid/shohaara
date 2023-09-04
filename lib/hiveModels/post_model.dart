@@ -2,10 +2,10 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
-// part 'post_model.g.dart';
+part 'post_model.g.dart';
 
 
-@HiveType(typeId: 0) // The typeId must be unique@HiveType(typeId: 0)
+@HiveType(typeId: 1) // The typeId must be unique@HiveType(typeId: 0)
 class post_model {
   @HiveField(0)
   final String? UserId;

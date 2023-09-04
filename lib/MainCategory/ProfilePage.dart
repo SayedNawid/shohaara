@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shohaara/MainCategory/edit_profile.dart';
+import '../SpalshScreens/OnBoardingSceen.dart';
 import '../constants.dart';
+import 'package:hive/hive.dart';
+import 'package:shohaara/hiveModels/userModel.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,6 +14,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  User? userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserData();
+  }
+
+  Future<void> _getUserData() async {
+    final userBox = await Hive.openBox<User>('users');
+    final user = userBox.get('user');
+    if (user != null) {
+      setState(() {
+        userData = user;
+        print("object 123" );
+      });
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,19 +86,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const Spacer(),
-                    const Column(
+                    Column(
                       children: [
                         Text(
-                          "محمد احسان یارخیل ",
+                          userData != null
+                              ? "${userData!.firstName} , ${userData!.lastName}"
+                              : "User Name",
                           style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: "Vazir",
-                              color: kPrimaryColor),
+                            fontFamily: "Vazir",
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: kPrimaryColor,
+                          ),
                         ),
                         Text(
-                          "+93 795 461 668",
-                          style:
-                              TextStyle(fontSize: 12, color: kPrimaryColor),
+                          userData != null
+                              ? "${userData!.phoneNumber}"
+                              : "+93 792 881 775",
+                          style: TextStyle(fontSize: 12, color: kPrimaryColor),
                         ),
                       ],
                     ),
@@ -164,9 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: const Text(
                   "خروج از حساب کاربری",
                   style: TextStyle(
-                      color: kPrimaryColor,
-                      fontFamily: "Vazir",
-                      fontSize: 18),
+                      color: kPrimaryColor, fontFamily: "Vazir", fontSize: 18),
                 ),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.only(left: 10, right: 10),

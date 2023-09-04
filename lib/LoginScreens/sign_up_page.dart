@@ -213,9 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     ButtonConfirm(
                       text: "تآیید",
-                      onPressed: () {
-                        signUp();
-                      },
+                      onPressed: () {},
                     ),
                     Container(
                       alignment: Alignment.bottomCenter,

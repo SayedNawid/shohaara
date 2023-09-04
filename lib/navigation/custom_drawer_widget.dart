@@ -109,7 +109,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                           Text(
                             userData != null
                                 ? "${userData!.firstName} ${userData!.lastName}"
-                                : "User Name", 
+                                : "User Name",
                             style: TextStyle(
                               fontFamily: "Vazir",
                               fontSize: 16,
@@ -133,7 +133,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Text(
                   'شعراء',
                   textAlign: TextAlign.center,
@@ -167,22 +167,28 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                 title: 'ارتباطات',
                 itemsList: communicationDrawerItemsList,
               ),
-              ListTile(
-                onTap: () {
-                  signOut(
-                      context); // Call the signOut function when "خروج" button is pressed
-                },
-                leading: Icon(
-                  Icons.exit_to_app_rounded,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'خروج',
-                  style: TextStyle(
-                    fontFamily: "Vazir",
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: ListTile(
+                    onTap: () {
+                      signOut(
+                          context); // Call the signOut function when "خروج" button is pressed
+                    },
+                    leading: Icon(
+                      Icons.exit_to_app_rounded,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      'خروج',
+                      style: TextStyle(
+                        fontFamily: "Vazir",
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),

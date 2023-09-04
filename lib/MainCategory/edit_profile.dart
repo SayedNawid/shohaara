@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:shohaara/MainCategory/ProfilePage.dart';
 
 import '../LoginScreens/components/button_confirm.dart';
+import '../SpalshScreens/OnBoardingSceen.dart';
 import '../constants.dart';
+import '../hiveModels/userModel.dart';
 import 'edit_text_field.dart';
 
 class EditProfile extends StatefulWidget {
@@ -13,6 +16,33 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  late String username = '';
+  late String phoneNumber = '';
+  late String email = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserData();
+  }
+
+  Future<void> _getUserData() async {
+    final userBox = await Hive.openBox<User>('users');
+    final user = userBox.get('user');
+    if (user != null) {
+      setState(() {
+      username = user.username!;
+      phoneNumber = user.phoneNumber!;
+      email = user.email!;
+      print(username);
+      //   userData = user;
+      });
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,9 +96,33 @@ class _EditProfileState extends State<EditProfile> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  maxRadius: 35,
-                  backgroundImage: AssetImage("images/profile.png"),
+                Stack(
+                  children: [
+                    const CircleAvatar(
+                      maxRadius: 35,
+                      backgroundImage: AssetImage("images/profile.png"),
+                    ),
+                    Positioned(
+                        bottom: 1,
+                        right: 1,
+                        child: Container(
+                          padding: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: kPrimaryColor),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: GestureDetector(
+                            onTap: () {
+                              print('object');
+                            },
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.black,
+                              size: 16,
+                            ),
+                          ),
+                        )),
+                  ],
                 ),
                 Text(
                   "اطلاعات شخصی",
@@ -93,6 +147,7 @@ class _EditProfileState extends State<EditProfile> {
                   height: 10,
                 ),
                 edit_text_field(
+                  value: username,
                   hintText: "نام کاربری جدید",
                   iconData: (Icons.person),
                   onChanged: (value) {},
@@ -101,6 +156,7 @@ class _EditProfileState extends State<EditProfile> {
                   height: 13,
                 ),
                 edit_text_field(
+                  value: phoneNumber,
                   hintText: "شماره مبایل جدید",
                   iconData: (Icons.phone_android_sharp),
                   onChanged: (value) {},
@@ -109,6 +165,7 @@ class _EditProfileState extends State<EditProfile> {
                   height: 13,
                 ),
                 edit_text_field(
+                  value: email,
                   hintText: "ایمیل جدید",
                   iconData: (Icons.email),
                   onChanged: (value) {},

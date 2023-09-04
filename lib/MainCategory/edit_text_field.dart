@@ -6,18 +6,22 @@ class edit_text_field extends StatelessWidget {
   final String hintText;
   final IconData iconData;
   final ValueChanged<String> onChanged;
+  final String value;
   const edit_text_field({
     super.key,
     required this.hintText,
     required this.iconData,
     required this.onChanged,
+    required this.value,
   });
+
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 35, right: 35),
-      child: TextField(
+      child: TextFormField(
+        initialValue: value,
         showCursor: true,
         cursorColor: kPrimaryColor,
         cursorHeight: 25,

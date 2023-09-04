@@ -44,11 +44,9 @@ class _MainPageState extends State<MainPage> {
                 print('index: $index');
                 if (index == 0) {
                 } else if (index == 1) {
-                  
                 } else if (index == 2) {
                 } else if (index == 8) {
                   SystemNavigator.pop();
-                  
                 }
               });
             }),
@@ -110,54 +108,56 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Text(
-                    "شعراء",
-                    style: TextStyle(
-                        shadows: [
-                          Shadow(
-                            color: kPrimaryColor.withOpacity(0.4),
-                            blurRadius: 18.0,
-                            offset: Offset(5.0, 7.0),
-                          ),
-                        ],
-                        fontSize: 40,
-                        fontFamily: "A.Ali_banner3az.ir",
-                        fontWeight: FontWeight.w500,
-                        color: kPrimaryColor),
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      style: IconButton.styleFrom(
-                          minimumSize: const Size(35, 55),
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100))),
-                      onPressed: () {
-                        _key.currentState!.openEndDrawer();
-                      },
-                      icon: Icon(
-                        Icons.vertical_distribute_outlined,
-                        color: kPrimaryColor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(6),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 40,
+                    ),
+                    Text(
+                      "شعراء",
+                      style: TextStyle(
+                          shadows: [
+                            Shadow(
+                              color: kPrimaryColor.withOpacity(0.4),
+                              blurRadius: 18.0,
+                              offset: Offset(5.0, 7.0),
+                            ),
+                          ],
+                          fontSize: 40,
+                          fontFamily: "A.Ali_banner3az.ir",
+                          fontWeight: FontWeight.w500,
+                          color: kPrimaryColor),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                        style: IconButton.styleFrom(
+                            minimumSize: const Size(35, 55),
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100))),
+                        onPressed: () {
+                          _key.currentState!.openEndDrawer();
+                        },
+                        icon: Icon(
+                          Icons.vertical_distribute_outlined,
+                          color: kPrimaryColor,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            screens[_selectedIndex],
-          ],
+              screens[_selectedIndex],
+            ],
+          ),
         ),
       ),
     );

@@ -28,7 +28,6 @@ class _ProfilePageState extends State<ProfilePage> {
     if (user != null) {
       setState(() {
         userData = user;
-        print("object 123" );
       });
     } else {
       Navigator.push(context,
@@ -90,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Text(
                           userData != null
-                              ? "${userData!.firstName} , ${userData!.lastName}"
+                              ? "${userData!.firstName} ${userData!.lastName}"
                               : "User Name",
                           style: TextStyle(
                             fontFamily: "Vazir",

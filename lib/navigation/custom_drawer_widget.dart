@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/SpalshScreens/OnBoardingSceen.dart';
 import 'package:shohaara/hiveModels/userModel.dart';
 import 'package:shohaara/main_page.dart';
@@ -54,7 +55,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
     final userBox = await Hive.openBox<User>('users');
     await userBox.clear(); // Clear user data from Hive
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const OnBoardingScreen()),
+      MaterialPageRoute(builder: (context) => const SignInPage()),
       (Route<dynamic> route) => false, // Remove all previous routes
     );
   }

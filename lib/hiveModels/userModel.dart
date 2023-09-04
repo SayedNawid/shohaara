@@ -1,33 +1,36 @@
-// Import hive and path_provider packages
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 part 'userModel.g.dart';
 
-@HiveType(typeId: 0) // The typeId must be unique@HiveType(typeId: 0)
+@HiveType(typeId: 0) 
 class User {
   @HiveField(0)
-  final String? firstName;
+  final String? id; 
 
   @HiveField(1)
-  final String? lastName;
+  final String? firstName;
 
   @HiveField(2)
-  final String? phoneNumber;
+  final String? lastName;
 
   @HiveField(3)
-  final String? email;
+  final String? phoneNumber;
 
   @HiveField(4)
-  final String? username;
+  final String? email;
 
   @HiveField(5)
-  final String? profilePicture;
+  final String? username;
 
   @HiveField(6)
+  final String? profilePicture;
+
+  @HiveField(7)
   final String? token;
 
   User({
+    required this.id, 
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,

@@ -55,4 +55,38 @@ class Fetch {
       return {'error': errorMessage};
     }
   }
+
+  Future<dynamic> putData(Map<String, dynamic> data,
+      {required String token}) async {
+    try {
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+      headers['Authorization'] = token;
+
+      http.Response response = await http.put(
+        Uri.parse(url),
+        body: jsonEncode(data),
+        headers: headers,
+      );
+      print("data");
+      print(data);
+      print(response.body);
+      print(url);
+
+      if (response.statusCode == 200) {
+        String responseData = response.body;
+        return jsonDecode(responseData);
+      } else if (response.statusCode == 400 || response.statusCode == 404) {
+        Map<String, dynamic> errorResponse = jsonDecode(response.body);
+        String errorMessage = errorResponse['message'];
+        print('Server Error: $errorMessage');
+        return {'error': errorMessage};
+      } else {
+        return {'error': 'Failed to update data'};
+      }
+    } catch (e) {
+      String errorMessage = e.toString();
+      print('Error: $errorMessage');
+      return {'error': errorMessage};
+    }
+  }
 }

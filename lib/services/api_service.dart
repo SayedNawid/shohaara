@@ -6,7 +6,7 @@ import 'fetcher.dart';
 
 class ApiService {
   static const String baseUrl =
-      "https://shohaara-m7wxe1ew9-bashir-danish.vercel.app/api/v1";
+      "https://shohaara-aep6x9o5r-bashir-danish.vercel.app/api/v1";
 
   static Future<void> signUp({
     required String firstName,
@@ -40,6 +40,7 @@ class ApiService {
         username: userResponse['username'] as String,
         profilePicture: userResponse['profilePicture'] as String,
         token: token,
+        id: userResponse['_id'] as String,
       );
 
       final userBox = await Hive.openBox<User>('users');
@@ -79,6 +80,7 @@ class ApiService {
         username: userResponse['username'] as String,
         profilePicture: userResponse['profilePicture'] as String,
         token: token,
+        id: userResponse['_id'] as String,
       );
 
       if (Hive.isBoxOpen('users')) {
@@ -92,5 +94,57 @@ class ApiService {
     }
 
     return responseBody;
+  }
+
+  static Future<Map<String, dynamic>> updateUser({
+    required String userId,
+    required String username,
+    required String phoneNumber,
+    required String email,
+    required String authToken,
+    required Function() whenComplete,
+    required Function(String) onError,
+  }) async {
+    final String apiUrl = '$baseUrl/users/$userId';
+
+    final Map<String, dynamic> data = {
+      'username': username,
+      'phoneNumber': phoneNumber,
+      'email': email,
+    };
+
+    final Map<String, dynamic> response =
+        await Fetch(apiUrl).putData(data, token: authToken);
+
+    if (response.containsKey('error')) {
+      onError('Update failed: ${response['error']}');
+      return {};
+    }
+    final userResponse = response['user'];
+    final token = authToken;
+    if (response['error'] == null) {
+      final user = User(
+        firstName: userResponse['firstName'] as String,
+        lastName: userResponse['lastName'] as String,
+        phoneNumber: userResponse['phoneNumber'].toString(),
+        email: userResponse['email'] as String,
+        username: userResponse['username'] as String,
+        profilePicture: userResponse['profilePicture'] as String,
+        token: token,
+        id: userResponse['_id'] as String,
+      );
+      final Box<User> userBox;
+
+      if (Hive.isBoxOpen('users')) {
+        userBox = Hive.box<User>('users');
+      } else {
+        userBox = await Hive.openBox<User>('users');
+      }
+      await userBox.clear();
+      await userBox.put('user', user);
+    }
+
+    whenComplete();
+    return response;
   }
 }

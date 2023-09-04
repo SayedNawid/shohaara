@@ -28,7 +28,6 @@ class _ProfilePageState extends State<ProfilePage> {
     if (user != null) {
       setState(() {
         userData = user;
-        print("object 123" );
       });
     } else {
       Navigator.push(context,

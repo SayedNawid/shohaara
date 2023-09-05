@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:shohaara/MainCategory/ProfilePage.dart';
+import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/services/api_service.dart';
-
 import '../LoginScreens/components/button_confirm.dart';
-import '../SpalshScreens/OnBoardingSceen.dart';
 import '../constants.dart';
 import '../hiveModels/userModel.dart';
 import 'edit_text_field.dart';
@@ -17,6 +15,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  late String firstName = '';
+  late String lastName = '';
   late String username = '';
   late String phoneNumber = '';
   late String email = '';
@@ -33,6 +33,8 @@ class _EditProfileState extends State<EditProfile> {
     final user = userBox.get('user');
     if (user != null) {
       setState(() {
+        firstName = user.firstName!;
+        lastName = user.lastName!;
         username = user.username!;
         phoneNumber = user.phoneNumber!;
         email = user.email!;
@@ -41,7 +43,7 @@ class _EditProfileState extends State<EditProfile> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()),
+        MaterialPageRoute(builder: (ctx) => const SignInPage()),
       );
     }
   }
@@ -55,6 +57,8 @@ class _EditProfileState extends State<EditProfile> {
 
       final response = await ApiService.updateUser(
         userId: userId,
+        firstName: firstName,
+        lastName: lastName,
         username: username,
         phoneNumber: phoneNumber,
         email: email,
@@ -72,7 +76,7 @@ class _EditProfileState extends State<EditProfile> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()),
+        MaterialPageRoute(builder: (ctx) => const SignInPage()),
       );
     }
   }
@@ -92,6 +96,18 @@ class _EditProfileState extends State<EditProfile> {
   void _updateEmail(String newValue) {
     setState(() {
       email = newValue;
+    });
+  }
+
+  void _updateFirstName(String newValue) {
+    setState(() {
+      firstName = newValue;
+    });
+  }
+
+  void _updatelastName(String newValue) {
+    setState(() {
+      lastName = newValue;
     });
   }
 
@@ -208,9 +224,27 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         EditTextField(
                           hintText: "نام کاربری جدید",
-                          iconData: Icons.person,
+                          iconData: Icons.verified_user_outlined,
                           initialValue: username,
                           onChanged: _updateUsername,
+                        ),
+                        SizedBox(
+                          height: 13,
+                        ),
+                        EditTextField(
+                          hintText: "نام جدید",
+                          iconData: Icons.person,
+                          initialValue: firstName,
+                          onChanged: _updateFirstName,
+                        ),
+                        SizedBox(
+                          height: 13,
+                        ),
+                        EditTextField(
+                          hintText: " تخلص جدید",
+                          iconData: Icons.people_alt_outlined,
+                          initialValue: lastName,
+                          onChanged: _updatelastName,
                         ),
                         SizedBox(
                           height: 13,

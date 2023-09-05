@@ -6,8 +6,8 @@ import 'fetcher.dart';
 
 class ApiService {
   static const String baseUrl =
-      "https://shohaara-r2i7sc9sx-bashir-danish.vercel.app/api/v1";
-
+      "https://shohaara-3j71w6wbn-bashir-danish.vercel.app/api/v1";
+      
   static Future<void> signUp({
     required String firstName,
     required String lastName,
@@ -98,17 +98,22 @@ class ApiService {
 
   static Future<Map<String, dynamic>> updateUser({
     required String userId,
+    required String firstName,
+    required String lastName,
     required String username,
     required String phoneNumber,
     required String email,
     required String authToken,
     required Function() whenComplete,
     required Function(String) onError,
+  
   }) async {
     final String apiUrl = '$baseUrl/users/$userId';
 
     final Map<String, dynamic> data = {
       'username': username,
+      'firstName': firstName,
+      'lastName': lastName,
       'phoneNumber': phoneNumber,
       'email': email,
     };

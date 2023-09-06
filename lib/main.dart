@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shohaara/MainCategory/edit_profile.dart';
 import 'package:shohaara/hiveModels/post_model.dart';
 import 'package:shohaara/main_page.dart';
 import 'SpalshScreens/OnBoardingSceen.dart';
-import 'firebase_options.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shohaara/hiveModels/userModel.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shohaara/MainCategory/edit_profile.dart';
+import '../LoginScreens/sign_in_page.dart';
 import '../SpalshScreens/OnBoardingSceen.dart';
 import '../constants.dart';
 import 'package:hive/hive.dart';
@@ -73,11 +74,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           backgroundColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(100))),
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        final res = await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const EditProfile()));
+                        if (res == true) {
+                          _getUserData();
+                        }
                       },
                       icon: const Icon(
                         FontAwesomeIcons.userEdit,
@@ -98,11 +102,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: kPrimaryColor,
                           ),
                         ),
-                        Text(
-                          userData != null
-                              ? "${userData!.phoneNumber}"
-                              : "+93 792 881 775",
-                          style: TextStyle(fontSize: 12, color: kPrimaryColor),
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Text(
+                            userData != null
+                                ? "${userData!.phoneNumber}"
+                                : "+93 792 881 775",
+                            style:
+                                TextStyle(fontSize: 12, color: kPrimaryColor),
+                          ),
                         ),
                       ],
                     ),
@@ -185,10 +193,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: ((context) => SignInPage())));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: ((context) => SignInPage())));
                 },
                 child: const Text(
                   "خروج از حساب کاربری",

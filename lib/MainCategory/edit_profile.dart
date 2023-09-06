@@ -68,6 +68,7 @@ class _EditProfileState extends State<EditProfile> {
           //   context,
           //   MaterialPageRoute(builder: (ctx) => const ProfilePage()),
           // );
+          Navigator.pop(context, true);
         },
         onError: (error) {
           print(error);

@@ -32,8 +32,19 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  bool _showError = false;
+
   Future<void> signUp() async {
-    print(name);
+    if (name.isEmpty ||
+        lastName.isEmpty ||
+        phoneNumber.isEmpty ||
+        email.isEmpty ||
+        username.isEmpty ||
+        password.isEmpty) {
+      setState(() {
+        _showError = true;
+      });
+    }
     try {
       await ApiService.signUp(
         firstName: name,
@@ -184,9 +195,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     RoundedUserNameField(
                         onChanged: (value) {
-                          setState(() {
-                            username = value;
-                          });
+                          setState(
+                            () {
+                              username = value;
+                            },
+                          );
                         },
                         hintText: "نام کاربری",
                         iconData: Icons.person_3),
@@ -217,6 +230,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         signUp();
                       },
                     ),
+                    if (_showError)
+                      const Text(
+                        'Fields is required.',
+                        style: TextStyle(color: Colors.red),
+                      ),
                     Container(
                       alignment: Alignment.bottomCenter,
                       width: 300,

@@ -95,6 +95,32 @@ class ApiService {
 
     return responseBody;
   }
+static Future<dynamic> getPosts({
+    required Function() whenComplete,
+    required Function(String) onError,
+  }) async {
+    final Box<User> userBox;
+      if (Hive.isBoxOpen('users')) {
+        userBox = Hive.box<User>('users');
+      } else {
+        userBox = await Hive.openBox<User>('users');
+      }
+    
+    final user = userBox.get('user');
+
+    Fetch fetch = Fetch('$baseUrl/posts');
+
+    final responseBody = await fetch.getData(user?.token);
+    final postSresponse = responseBody['posts'];
+    
+    if (responseBody['error'] == null) {
+      
+      whenComplete();
+      return postSresponse;
+    }
+
+    // return responseBody;
+  }
 
   static Future<Map<String, dynamic>> updateUser({
     required String userId,

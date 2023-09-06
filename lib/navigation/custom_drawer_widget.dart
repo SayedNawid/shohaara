@@ -119,7 +119,8 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                             ),
                           ),
                           Text(
-                            "Software Engineer",
+                            userData != null ? "${userData!.phoneNumber}" : 
+                            "+93 799 000 000",
                             style: TextStyle(
                                 fontFamily: "Vazir",
                                 fontSize: 12,

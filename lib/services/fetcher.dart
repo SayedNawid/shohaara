@@ -6,7 +6,7 @@ class Fetch {
 
   Fetch(this.url);
 
-  Future<dynamic> getData({String? token}) async {
+  Future<dynamic> getData(String? token) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     if (token != null) {
       headers['Authorization'] = token;

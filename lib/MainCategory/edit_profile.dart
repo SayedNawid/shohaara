@@ -1,6 +1,9 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shohaara/LoginScreens/sign_in_page.dart';
+import 'package:shohaara/MainCategory/utils.dart';
 import 'package:shohaara/services/api_service.dart';
 import '../LoginScreens/components/button_confirm.dart';
 import '../constants.dart';
@@ -64,10 +67,6 @@ class _EditProfileState extends State<EditProfile> {
         email: email,
         authToken: authToken,
         whenComplete: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (ctx) => const ProfilePage()),
-          // );
           Navigator.pop(context, true);
         },
         onError: (error) {
@@ -111,6 +110,13 @@ class _EditProfileState extends State<EditProfile> {
       lastName = newValue;
     });
   }
+  Uint8List? _image ;
+  void selectImage() async{
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img ;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +149,6 @@ class _EditProfileState extends State<EditProfile> {
                     alignment: Alignment.topLeft,
                     child: IconButton(
                       style: IconButton.styleFrom(
-                        minimumSize: const Size(35, 55),
                         elevation: 0,
                         backgroundColor: Colors.transparent,
                         shape: RoundedRectangleBorder(
@@ -161,45 +166,40 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               isLoading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Stack(
                           children: [
+                            _image != null ? 
+                            CircleAvatar(
+                              radius: 45,
+                              backgroundImage: MemoryImage(_image!) ,
+                            ) :
                             const CircleAvatar(
-                              maxRadius: 35,
-                              backgroundImage: AssetImage("images/profile.png"),
+                              radius: 45,
+                              backgroundImage: NetworkImage(
+                                  'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png'),
                             ),
                             Positioned(
-                              bottom: 1,
-                              right: 1,
-                              child: Container(
-                                padding: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: kPrimaryColor),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print('object');
-                                  },
-                                  child: Icon(
-                                    Icons.edit,
-                                    color: Colors.black,
-                                    size: 16,
-                                  ),
+                              child: IconButton(
+                                onPressed: selectImage,
+                                icon: const Icon(
+                                  Icons.add_a_photo,
+                                  color: kPrimaryColor,
                                 ),
                               ),
-                            ),
+                              bottom: -10,
+                              left: 50,
+                            )
                           ],
                         ),
-                        Text(
+                        const Text(
                           "اطلاعات شخصی",
                           style: TextStyle(
                             color: kPrimaryColor,
@@ -208,10 +208,10 @@ class _EditProfileState extends State<EditProfile> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           "برای نمایش اطلاعات روی فیلد ها کلیک کنید",
                           style: TextStyle(
                             color: kSecondrayColor,
@@ -220,7 +220,7 @@ class _EditProfileState extends State<EditProfile> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         EditTextField(
@@ -229,7 +229,7 @@ class _EditProfileState extends State<EditProfile> {
                           initialValue: username,
                           onChanged: _updateUsername,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 13,
                         ),
                         EditTextField(
@@ -238,7 +238,7 @@ class _EditProfileState extends State<EditProfile> {
                           initialValue: firstName,
                           onChanged: _updateFirstName,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 13,
                         ),
                         EditTextField(
@@ -247,7 +247,7 @@ class _EditProfileState extends State<EditProfile> {
                           initialValue: lastName,
                           onChanged: _updatelastName,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 13,
                         ),
                         EditTextField(
@@ -256,7 +256,7 @@ class _EditProfileState extends State<EditProfile> {
                           initialValue: phoneNumber,
                           onChanged: _updatePhoneNumber,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 13,
                         ),
                         EditTextField(
@@ -265,7 +265,7 @@ class _EditProfileState extends State<EditProfile> {
                           initialValue: email,
                           onChanged: _updateEmail,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 25,
                         ),
                         ButtonConfirm(

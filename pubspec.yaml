@@ -22,7 +22,7 @@ dependencies:
   fluttericon: ^2.0.0
   slide_to_act: ^2.0.1
   firebase_auth: ^4.8.0
-  # image_picker: ^1.0.2
+  image_picker: ^1.0.2
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.3
   hive: ^2.2.3

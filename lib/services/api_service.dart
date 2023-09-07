@@ -1,13 +1,16 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:shohaara/hiveModels/userModel.dart';
 import 'fetcher.dart';
 
 class ApiService {
-  static const String baseUrl =
-      "https://shohaara-3j71w6wbn-bashir-danish.vercel.app/api/v1";
-      
+  // static const String baseUrl =
+  //     "https://shohaara-3j71w6wbn-bashir-danish.vercel.app/api/v1";
+
+  static const String baseUrl = "http://192.168.1.250:5000/api/v1";
+
   static Future<void> signUp({
     required String firstName,
     required String lastName,
@@ -95,26 +98,92 @@ class ApiService {
 
     return responseBody;
   }
-static Future<dynamic> getPosts({
+
+  static Future<void> uploadImage({
+    required String? id,
+    required String authToken,
+    required Uint8List imageFile,
+    required String fileType,
+    required Function(String) onSuccess,
+    required Function(String) onError,
+  }) async {
+    final String apiUrl = '$baseUrl/$id/upload';
+
+    final request = http.MultipartRequest('PUT', Uri.parse(apiUrl));
+    request.headers['Authorization'] = 'Bearer $authToken';
+
+    request.files.add(
+      http.MultipartFile(
+        'file',
+        http.ByteStream.fromBytes(imageFile),
+        imageFile.length,
+        filename: 'image.jpg',
+      ),
+    );
+
+    request.fields['fileType'] = fileType;
+
+    try {
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        final responseJson = await response.stream.bytesToString();
+
+        if (fileType == 'user') {
+          final userData = json.decode(responseJson);
+          final userBox = Hive.isBoxOpen('users')
+              ? Hive.box<User>('users')
+              : await Hive.openBox<User>('users');
+          await userBox.clear();
+          final user = User(
+            firstName: userData['firstName'] as String,
+            lastName: userData['lastName'] as String,
+            phoneNumber: userData['phoneNumber'].toString(),
+            email: userData['email'] as String,
+            username: userData['username'] as String,
+            profilePicture: userData['profilePicture'] as String,
+            token: authToken,
+            id: userData['_id'] as String,
+          );
+          await userBox.put('user', user);
+
+          print(user.username);
+          print(user.token);
+          print(user.profilePicture);
+        
+          onSuccess(userData);
+        } else if (fileType == 'post') {
+          final imagePath = json.decode(responseJson)['imagePath'];
+          onSuccess(imagePath);
+        } else {
+          onError('Invalid fileType');
+        }
+      } else {
+        onError('Image upload failed. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      onError('Error uploading image: $e');
+    }
+  }
+
+  static Future<dynamic> getPosts({
     required Function() whenComplete,
     required Function(String) onError,
   }) async {
     final Box<User> userBox;
-      if (Hive.isBoxOpen('users')) {
-        userBox = Hive.box<User>('users');
-      } else {
-        userBox = await Hive.openBox<User>('users');
-      }
-    
+    if (Hive.isBoxOpen('users')) {
+      userBox = Hive.box<User>('users');
+    } else {
+      userBox = await Hive.openBox<User>('users');
+    }
+
     final user = userBox.get('user');
 
     Fetch fetch = Fetch('$baseUrl/posts');
 
     final responseBody = await fetch.getData(user?.token);
     final postSresponse = responseBody['posts'];
-    
+
     if (responseBody['error'] == null) {
-      
       whenComplete();
       return postSresponse;
     }
@@ -132,7 +201,6 @@ static Future<dynamic> getPosts({
     required String authToken,
     required Function() whenComplete,
     required Function(String) onError,
-  
   }) async {
     final String apiUrl = '$baseUrl/users/$userId';
 

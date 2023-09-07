@@ -18,6 +18,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  User? userData;
+
   late String firstName = '';
   late String lastName = '';
   late String username = '';
@@ -36,6 +38,7 @@ class _EditProfileState extends State<EditProfile> {
     final user = userBox.get('user');
     if (user != null) {
       setState(() {
+        userData = user;
         firstName = user.firstName!;
         lastName = user.lastName!;
         username = user.username!;
@@ -110,12 +113,41 @@ class _EditProfileState extends State<EditProfile> {
       lastName = newValue;
     });
   }
-  Uint8List? _image ;
-  void selectImage() async{
-    Uint8List img = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = img ;
-    });
+
+  Uint8List? _image;
+
+  // void selectImage() async {
+  //   Uint8List? img = await pickImage(ImageSource.gallery);
+  //   if (img != null) {
+  //     setState(() {
+  //       _image = img;
+  //     });
+  //     print(_image);
+  //   } else {
+  //     print("Image selection canceled");
+  //   }
+  // }
+  void selectImage() async {
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      setState(() {
+        _image = img;
+      });
+      ApiService.uploadImage(
+        id: userData?.id,
+        authToken: userData!.token as String,
+        imageFile: img,
+        fileType: 'user',
+        onSuccess: (res) {
+          print('');
+        },
+        onError: (error) {
+          print( error);
+        },
+      );
+    } else {
+      print("Image selection canceled");
+    }
   }
 
   @override
@@ -176,16 +208,16 @@ class _EditProfileState extends State<EditProfile> {
                       children: [
                         Stack(
                           children: [
-                            _image != null ? 
-                            CircleAvatar(
-                              radius: 45,
-                              backgroundImage: MemoryImage(_image!) ,
-                            ) :
-                            const CircleAvatar(
-                              radius: 45,
-                              backgroundImage: NetworkImage(
-                                  'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png'),
-                            ),
+                            _image != null
+                                ? CircleAvatar(
+                                    radius: 45,
+                                    backgroundImage: MemoryImage(_image!),
+                                  )
+                                : const CircleAvatar(
+                                    radius: 45,
+                                    backgroundImage: NetworkImage(
+                                        'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png'),
+                                  ),
                             Positioned(
                               child: IconButton(
                                 onPressed: selectImage,

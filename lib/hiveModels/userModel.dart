@@ -24,7 +24,7 @@ class User {
   final String? username;
 
   @HiveField(6)
-  final String? profilePicture;
+  late final String? profilePicture;
 
   @HiveField(7)
   final String? token;
@@ -39,4 +39,6 @@ class User {
     required this.profilePicture,
     required this.token,
   });
+
+  User? copyWith({required profilePicture}) {}
 }

@@ -6,12 +6,18 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shohaara/hiveModels/userModel.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(postmodelAdapter());
+ try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    print('Error initializing Firebase: $e');
+  }
 
   await Hive.openBox<User>('users');
 
@@ -43,11 +49,13 @@ class _MyAppState extends State<MyApp> {
     final userBox = await Hive.openBox<User>('users');
     final user = userBox.get('user');
     if (user != null) {
-      await Future.delayed(const Duration(seconds: 2)); 
-      Navigator.push(context, MaterialPageRoute(builder: (ctx) => const MainPage()));
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (ctx) => const MainPage()));
     } else {
-      await Future.delayed(const Duration(seconds: 2)); 
-      Navigator.push(context, MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()));
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()));
     }
   }
 

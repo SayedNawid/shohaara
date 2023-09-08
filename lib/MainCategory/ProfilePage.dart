@@ -30,6 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         userData = user;
       });
+      print(userData!.profilePicture);
+      print(
+        '$kImgBaseUrl${userData!.profilePicture}',
+      );
     } else {
       Navigator.push(context,
           MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()));
@@ -117,9 +121,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       width: 8,
                     ),
-                    const CircleAvatar(
-                      backgroundImage: AssetImage("images/profile.png"),
-                    ),
+                    userData != null &&
+                            userData!.profilePicture != null &&
+                            userData!.profilePicture!.isNotEmpty
+                        ? CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              userData!.profilePicture!,
+                            ),
+                          )
+                        : CircleAvatar(
+                            backgroundImage: AssetImage("images/profile.png"),
+                          )
                   ],
                 ),
               ),

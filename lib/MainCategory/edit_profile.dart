@@ -136,13 +136,14 @@ class _EditProfileState extends State<EditProfile> {
       ApiService.uploadImage(
         id: userData?.id,
         authToken: userData!.token as String,
+        userData: userData,
         imageFile: img,
         fileType: 'user',
         onSuccess: (res) {
           print('');
         },
         onError: (error) {
-          print( error);
+          print(error);
         },
       );
     } else {
@@ -208,16 +209,25 @@ class _EditProfileState extends State<EditProfile> {
                       children: [
                         Stack(
                           children: [
-                            _image != null
-                                ? CircleAvatar(
-                                    radius: 45,
-                                    backgroundImage: MemoryImage(_image!),
-                                  )
-                                : const CircleAvatar(
-                                    radius: 45,
-                                    backgroundImage: NetworkImage(
-                                        'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png'),
-                                  ),
+                            if (userData != null &&
+                                userData!.profilePicture != null &&
+                                userData!.profilePicture!.isNotEmpty)
+                              CircleAvatar(
+                                radius: 45,
+                                backgroundImage:
+                                    NetworkImage(userData!.profilePicture!),
+                              )
+                            else if (_image != null)
+                              CircleAvatar(
+                                radius: 45,
+                                backgroundImage: MemoryImage(_image!),
+                              )
+                            else
+                              const CircleAvatar(
+                                radius: 45,
+                                backgroundImage: NetworkImage(
+                                    'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png'),
+                              ),
                             Positioned(
                               child: IconButton(
                                 onPressed: selectImage,

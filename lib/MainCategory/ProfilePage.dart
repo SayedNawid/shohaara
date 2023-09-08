@@ -31,9 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
         userData = user;
       });
       print(userData!.profilePicture);
-      print(
-        '$kImgBaseUrl${userData!.profilePicture}',
-      );
+      print('$kImgBaseUrl${userData!.profilePicture}');
     } else {
       Navigator.push(context,
           MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()));
@@ -131,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           )
                         : CircleAvatar(
                             backgroundImage: AssetImage("images/profile.png"),
-                          )
+                          ),
                   ],
                 ),
               ),

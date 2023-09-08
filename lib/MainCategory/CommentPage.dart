@@ -69,12 +69,10 @@ class _CommentPageState extends State<CommentPage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
-              
             ],
           ),
         ),
       ),
     );
-    ;
   }
 }

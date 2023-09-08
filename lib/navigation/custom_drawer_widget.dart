@@ -102,14 +102,22 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                   textDirection: TextDirection.rtl,
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage("images/profile.png"),
-                      ),
+                      userData != null &&
+                            userData!.profilePicture != null &&
+                            userData!.profilePicture!.isNotEmpty
+                        ? CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              userData!.profilePicture!,
+                            ),
+                          )
+                        : CircleAvatar(
+                            backgroundImage: AssetImage("images/profile.png"),
+                          ),
                       Column(
                         children: [
                           Text(
                             userData != null
-                                ? "${userData!.firstName} ${userData!.lastName}"
+                                ? " ${userData!.firstName} ${userData!.lastName}"
                                 : "User Name",
                             style: TextStyle(
                               fontFamily: "Vazir",

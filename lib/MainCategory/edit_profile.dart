@@ -209,18 +209,18 @@ class _EditProfileState extends State<EditProfile> {
                       children: [
                         Stack(
                           children: [
-                            if (userData != null &&
+                            if (_image != null)
+                              CircleAvatar(
+                                radius: 45,
+                                backgroundImage: MemoryImage(_image!),
+                              )
+                           else if (userData != null &&
                                 userData!.profilePicture != null &&
                                 userData!.profilePicture!.isNotEmpty)
                               CircleAvatar(
                                 radius: 45,
                                 backgroundImage:
                                     NetworkImage(userData!.profilePicture!),
-                              )
-                            else if (_image != null)
-                              CircleAvatar(
-                                radius: 45,
-                                backgroundImage: MemoryImage(_image!),
                               )
                             else
                               const CircleAvatar(

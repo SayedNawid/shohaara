@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shohaara/LoginScreens/components/button_confirm.dart';
 import 'package:shohaara/LoginScreens/components/rounded_username_field.dart';
 import 'package:shohaara/LoginScreens/components/starField.dart';
+import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/main_page.dart';
 import 'package:shohaara/services/api_service.dart';
 import '../constants.dart';
@@ -260,7 +261,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (ctx) => const MainPage(),
+                                        builder: (ctx) => const SignInPage(),
                                       ));
                                 },
                             ),

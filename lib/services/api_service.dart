@@ -1,5 +1,6 @@
-import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -83,7 +84,7 @@ class ApiService {
         phoneNumber: userResponse['phoneNumber'].toString(),
         email: userResponse['email'] as String,
         username: userResponse['username'] as String,
-        profilePicture: userResponse['profilePicture'] as String,
+        profilePicture: userResponse['profilePicture'] as String?,
         token: token,
         id: userResponse['_id'] as String,
       );
@@ -191,8 +192,7 @@ class ApiService {
       final String imagePath = '$fileType/$id/${DateTime.now()}.jpg';
       print("Uploading image to path: $imagePath");
 
-      final UploadTask uploadTask =
-          storageRef.child(imagePath).putData(imageFile);
+      final UploadTask uploadTask = storageRef.child(imagePath).putData(imageFile);
 
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => {});
 
@@ -242,6 +242,39 @@ class ApiService {
     }
   }
 
+  static Future<void> createPost(
+    String id ,
+    String postText ,
+    int postLike ,
+    File imageFile ,
+  )async{
+    try{
+      // store post
+      CollectionReference posts = FirebaseFirestore.instance.collection('posts');
+      // store image
+      final FirebaseStorage storage = FirebaseStorage.instance;
+      final Reference storageReference = storage.ref().child('post_images/${id}_${DateTime.now().millisecondsSinceEpoch}.jpg');
+      // Upload the image to Firebase Storage.
+      final UploadTask uploadTask = storageReference.putFile(imageFile);
+      final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => {});
+
+      // Get the download URL of the uploaded image.
+      final String postImageUrl = await taskSnapshot.ref.getDownloadURL();
+
+       await posts.add({
+      'id': id,
+      'postImageUrl': postImageUrl,
+      'postText': postText,
+      'postLike': postLike,
+    });
+    // Post created successfully.
+    print('Post created successfully.');
+  } catch (e) {
+    // Error handling if the post creation or image upload fails.
+    print('Error creating post: $e');
+  }
+}
+  
   static Future<dynamic> getPosts({
     required Function() whenComplete,
     required Function(String) onError,
@@ -305,7 +338,7 @@ class ApiService {
         phoneNumber: userResponse['phoneNumber'].toString(),
         email: userResponse['email'] as String,
         username: userResponse['username'] as String,
-        profilePicture: userResponse['profilePicture'] as String,
+        profilePicture: userResponse['profilePicture'] as String?,
         token: token,
         id: userResponse['_id'] as String,
       );

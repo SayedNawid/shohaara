@@ -1,5 +1,7 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:shohaara/MainCategory/utils.dart';
 import '../constants.dart';
 
 class CreatePost extends StatefulWidget {
@@ -10,6 +12,16 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  Uint8List? _image;
+  void selectImage() async {
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      setState(() {
+        _image = img;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +36,7 @@ class _CreatePostState extends State<CreatePost> {
                   width: 40,
                 ),
                 Text(
-                  "شعراء",
+                  "ایجاد پست جدید",
                   style: TextStyle(
                       shadows: [
                         Shadow(
@@ -33,7 +45,7 @@ class _CreatePostState extends State<CreatePost> {
                           offset: const Offset(5.0, 7.0),
                         ),
                       ],
-                      fontSize: 40,
+                      fontSize: 28,
                       fontFamily: "A.Ali_banner3az.ir",
                       fontWeight: FontWeight.w500,
                       color: kPrimaryColor),
@@ -58,49 +70,85 @@ class _CreatePostState extends State<CreatePost> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: TextField(
-                showCursor: true,
-                cursorColor: kPrimaryColor,
-                cursorHeight: 25,
-                style: TextStyle(
-                    color: kPrimaryColor,
-                    fontFamily: "Vazir",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400),
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 20),
-                  // suffixIcon: Icon(
-                  //   size: 20,
-                  //   iconData,
-                  //   color: kPrimaryColor,
-                  // ),
-                  // prefixIcon: Icon(
-                  //   Icons.mode_edit,
-                  //   size: 14,
-                  //   color: kPrimaryColor,
-                  // ),
-                  hintText: "شعر خود را وارد کنید",
-                  hintStyle:
-                      TextStyle(fontFamily: "Vazir", color: kSecondrayColor),
-                  border: InputBorder.none,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
-                        width: 1,
-                        color: kPrimaryColor,
-                      )),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
-                        width: 1,
-                        color: kPrimaryColor,
-                      )),
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shadowColor: kPrimaryColor,
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                child: Column(
+                  children: [
+                    Container(
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: TextField(
+                            maxLines: 4,
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontFamily: "Vazir",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: " چه چیزی در ذهن خود دارید ...",
+                              hintStyle: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontFamily: "Vazir",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            cursorColor: kPrimaryColor,
+                            keyboardType: TextInputType.multiline,
+                          ),
+                        ),
+                      ),
+                    ),
+                    _image != null
+                        ? Image.memory(_image!)
+                        : const SizedBox(
+                            height: 16,
+                          ),
+                    Divider(),
+                    TextButton(
+                        onPressed: () {
+                          selectImage();
+                        },
+                        child: const Text(
+                          "انتخاب کردن عکس",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: "Vazir",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400),
+                        )),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                "ذخیره کردن",
+                style: const TextStyle(
+                    color: Colors.white, fontFamily: "Vazir", fontSize: 18),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                backgroundColor: kPrimaryColor,
+                minimumSize: const Size(345, 50),
+                elevation: 10,
+                shadowColor: kPrimaryColor,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
                 ),
               ),
             ),

@@ -6,7 +6,9 @@ import 'package:line_icons/line_icons.dart';
 // import 'package:shohaara/MainCategory/CommentPage.dart';
 // import 'package:shohaara/MainCategory/CreatePost.dart';
 import 'package:shohaara/MainCategory/ProfilePage.dart';
+import 'package:shohaara/MainCategory/about.dart';
 import 'package:shohaara/MainCategory/chat_page.dart';
+import 'package:shohaara/MainCategory/rules.dart';
 import 'package:shohaara/constants.dart';
 import 'package:shohaara/navigation/custom_drawer_widget.dart';
 
@@ -43,8 +45,13 @@ class _MainPageState extends State<MainPage> {
                 _key.currentState!.closeEndDrawer();
                 print('index: $index');
                 if (index == 0) {
+                  MainPage();
                 } else if (index == 1) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => About()));
                 } else if (index == 2) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Rules()));
                 } else if (index == 8) {
                   SystemNavigator.pop();
                 }

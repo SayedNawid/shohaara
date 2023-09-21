@@ -3,16 +3,14 @@ import 'package:hive/hive.dart';
 import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/SpalshScreens/OnBoardingSceen.dart';
 import 'package:shohaara/hiveModels/userModel.dart';
-import 'package:shohaara/main_page.dart';
-
 import '../constants.dart';
 import 'drawer_category_items_list_widget.dart';
 
 List<Map<String, dynamic>> dashboardDrawerItemsList = [
   {
     'category_index': 1,
-    'icon': Icons.bookmark,
-    'title': 'ذخیره شده ها',
+    'icon': Icons.home,
+    'title': 'خانه',
   },
   {
     'category_index': 1,
@@ -97,22 +95,24 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
                   child: Row(
                     children: [
                       userData != null &&
-                            userData!.profilePicture != null &&
-                            userData!.profilePicture!.isNotEmpty
-                        ? CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              userData!.profilePicture!,
+                              userData!.profilePicture != null &&
+                              userData!.profilePicture!.isNotEmpty
+                          ? CircleAvatar(
+                              radius: 35,
+                              backgroundImage: NetworkImage(
+                                userData!.profilePicture!,
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: 35,
+                              backgroundImage: AssetImage("images/profile.png"),
                             ),
-                          )
-                        : CircleAvatar(
-                            backgroundImage: AssetImage("images/profile.png"),
-                          ),
                       Column(
                         children: [
                           Text(
@@ -127,16 +127,17 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                             ),
                           ),
                           Text(
-                            userData != null ? "${userData!.phoneNumber}" : 
-                            "+93 799 000 000",
+                            userData != null
+                                ? "${userData!.phoneNumber}"
+                                : "+93 799 000 000",
                             style: TextStyle(
                                 fontFamily: "Vazir",
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

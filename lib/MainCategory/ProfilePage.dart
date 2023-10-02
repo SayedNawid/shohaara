@@ -30,8 +30,8 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         userData = user;
       });
-      print(userData!.profilePicture);
-      print('$kImgBaseUrl${userData!.profilePicture}');
+      // print(userData!.profilePicture);
+      // print('$kImgBaseUrl${userData!.profilePicture}');
     } else {
       Navigator.push(context,
           MaterialPageRoute(builder: (ctx) => const OnBoardingScreen()));

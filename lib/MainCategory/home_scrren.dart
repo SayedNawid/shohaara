@@ -1,35 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/MainCategory/edit_profile.dart';
+import 'package:shohaara/MainCategory/postItem.dart';
+import 'package:shohaara/models/post_model.dart'; // Import the correct Post class
+import 'package:shohaara/hiveModels/userModel.dart';
+import 'package:shohaara/services/fetcher.dart';
+import 'package:shohaara/services/post_services.dart';
 import '../constants.dart';
 import 'CommentPage.dart';
 import 'CreatePost.dart';
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    super.key,
-  });
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {  
-  return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  User? userData;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserData();
+  }
+
+  Future<void> _getUserData() async {
+    final userBox = await Hive.openBox<User>('users');
+    final user = userBox.get('user');
+    if (user != null) {
+      setState(() {
+        userData = user;
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (ctx) => const SignInPage()),
+      );
+    }
+  }
+
+  Future<void> _refreshPosts() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await PostService.fetchPosts(
+          whenComplete: () {
+            setState(() {
+              _isLoading = false;
+            });
+          },
+          onError: () {
+             setState(() {
+              _isLoading = false;
+            });
+          });
+    } catch (error) {
+      print('Failed to fetch posts. Error: $error');
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: _refreshPosts,
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               Container(
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => CreatePost())));
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => CreatePost()),
+                      ),
+                    );
                   },
                   child: Text(
                     "آیا کدام شعر جدید دارید",
                     style: const TextStyle(
-                        color: kPrimaryColor,
-                        fontFamily: "Vazir",
-                        fontSize: 18),
+                      color: kPrimaryColor,
+                      fontFamily: "Vazir",
+                      fontSize: 18,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.only(left: 15, right: 15),
@@ -46,175 +111,22 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Card(
-                  shadowColor: kPrimaryColor,
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(35, 55),
-                                  elevation: 0,
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(100))),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfile()));
-                              },
-                              icon: Icon(
-                                Icons.more_vert_outlined,
-                                color: kPrimaryColor,
-                              ),
-                              label: Text(""),
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                Text(
-                                  "محمد احسان یارخیل ",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: "Vazir",
-                                      color: kPrimaryColor),
-                                ),
-                                Text(
-                                  "2March - 02:34pm",
-                                  style: TextStyle(
-                                      fontSize: 12, color: kPrimaryColor),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            CircleAvatar(
-                              backgroundImage: AssetImage("images/profile.png"),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Container(
-                          width: double.infinity,
-                          height: 1,
-                          color: kPrimaryColor,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: double.infinity,
-                          height: 100,
-                          child: Text(
-                            "من حلقه های زلفش از عشق می شمارم \n ور نه کجا رسد کس در حدو در شمارش \n یک جان چه بود صد جان منی ای خوب من",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontFamily: "Vazir",
-                                color: kPrimaryColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 170,
-                        child: Image.asset("images/matn2.jpg"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
-                        child: Container(
-                          width: double.infinity,
-                          height: 80,
-                          child: Row(
-                            children: [
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(35, 55),
-                                    elevation: 0,
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(100))),
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.bookmark_outline_outlined,
-                                  color: kPrimaryColor,
-                                ),
-                                label: Text(""),
-                              ),
-                              Spacer(),
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(35, 55),
-                                    elevation: 0,
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(100))),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CommentPage()));
-                                },
-                                icon: Text(
-                                  "10",
-                                  style: TextStyle(
-                                      fontFamily: "Vazir",
-                                      color: kPrimaryColor,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                label: Icon(
-                                  FontAwesomeIcons.comment,
-                                  color: kPrimaryColor,
-                                ),
-                              ),
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(35, 55),
-                                  elevation: 0,
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                icon: Text(
-                                  "10",
-                                  style: TextStyle(
-                                      fontFamily: "Vazir",
-                                      color: kPrimaryColor,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                label: Icon(
-                                  Icons.favorite_border_outlined,
-                                  color: kPrimaryColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+              if (_isLoading)
+                CircularProgressIndicator() // Show a loader while fetching posts
+              else
+                ListView.builder(
+                  itemCount: PostService.posts.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final postMap = PostService.posts[index];
+                    final post = PostModel.fromJson(postMap);
+                    return PostItem(
+                      post: post,
+                      userId: '',
+                    );
+                  },
                 ),
-              ),
             ],
           ),
         ),

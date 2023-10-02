@@ -9,11 +9,31 @@ import 'package:shohaara/hiveModels/userModel.dart';
 import 'fetcher.dart';
 
 class ApiService {
-  // static const String baseUrl =
-  //     "https://shohaara-9k0p3s0kq-bashir-danish.vercel.app/api/v1";
+  static User? loggedInUser;
 
-  // static const String baseUrl = "http://192.168.1.250:5000/api/v1";
 
+ static Future<void> getUserFromHive() async {
+    final Box<User> userBox;
+    try {
+      if (Hive.isBoxOpen('users')) {
+        userBox = Hive.box<User>('users');
+      } else {
+        userBox = await Hive.openBox<User>('users');
+      }
+
+      final user = userBox.get('user');
+
+      if (user != null) {
+        loggedInUser = user;
+      } else {
+        loggedInUser = null;
+      }
+    } catch (error) {
+      
+      loggedInUser = null;
+      print('Error reading user data from Hive: $error');
+    }
+  }
   static Future<void> signUp({
     required String firstName,
     required String lastName,
@@ -48,7 +68,7 @@ class ApiService {
         token: token,
         id: userResponse['_id'] as String,
       );
-
+      loggedInUser = user;
       final userBox = await Hive.openBox<User>('users');
 
       await userBox.clear();
@@ -111,10 +131,8 @@ class ApiService {
 //   required Function(String) onError,
 // }) async {
 //   final String apiUrl = '$kBaseUrl/$id/upload';
-
 //   final request = http.MultipartRequest('PUT', Uri.parse(apiUrl));
 //   request.headers['Authorization'] = 'Bearer $authToken';
-
 //   request.files.add(
 //     http.MultipartFile(
 //       'file',
@@ -123,10 +141,8 @@ class ApiService {
 //       filename: 'image.jpg',
 //     ),
 //   );
-
 //   request.fields['fileType'] = fileType;
 //   print(apiUrl);
-
 //   try {
 //     final response = await request.send();
 //      final responseJson = await response.stream.bytesToString();
@@ -136,7 +152,6 @@ class ApiService {
 //       // Decode the response JSON
 //       final responseJson = await response.stream.bytesToString();
 //       print(responseJson);
-
 //       if (fileType == 'user') {
 //         final userData = json.decode(responseJson);
 //         final userBox = Hive.isBoxOpen('users')
@@ -154,11 +169,9 @@ class ApiService {
 //           id: userData['_id'] as String,
 //         );
 //         await userBox.put('user', user);
-
 //         print(user.username);
 //         print(user.token);
 //         print(user.profilePicture);
-
 //         onSuccess(userData);
 //       } else if (fileType == 'post') {
 //         final imagePath = json.decode(responseJson)['imagePath'];
@@ -192,46 +205,39 @@ class ApiService {
       final String imagePath = '$fileType/$id/${DateTime.now()}.jpg';
       print("Uploading image to path: $imagePath");
 
-      final UploadTask uploadTask = storageRef.child(imagePath).putData(imageFile);
+      final UploadTask uploadTask =
+          storageRef.child(imagePath).putData(imageFile);
 
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => {});
 
       final String downloadURL = await snapshot.ref.getDownloadURL();
 
-      if (downloadURL.isNotEmpty) {
-        final user = User(
-          firstName: userData!.firstName,
-          lastName: userData.lastName,
-          phoneNumber: userData.phoneNumber,
-          email: userData.email,
-          username: userData.username,
-          profilePicture: downloadURL,
-          token: userData.token,
-          id: userData.id,
-        );
-        print(user.profilePicture);
-        final userBox = await Hive.openBox<User>('users');
-        await userBox.clear();
-        await userBox.put('user', user);
-        Fetch fetch = Fetch('$kBaseUrl/users/$id/upload');
-        await fetch.putData({imagePath: imagePath}, token: authToken);
-      }
       if (fileType == 'user') {
-        // Send the downloadURL to your Express server
-        // final response = await http.post(
-        //   , // Replace with your Express server API URL
-        //   body: {'downloadURL': downloadURL},
-        // );
+        if (downloadURL.isNotEmpty) {
+          final user = User(
+            firstName: userData!.firstName,
+            lastName: userData.lastName,
+            phoneNumber: userData.phoneNumber,
+            email: userData.email,
+            username: userData.username,
+            profilePicture: downloadURL,
+            token: userData.token,
+            id: userData.id,
+          );
+          print("user.profilePicture");
+          print(downloadURL);
 
-        // if (response.statusCode == 200) {
-        //   // Handle success
-        //   onSuccess(downloadURL);
-        // } else {
-        //   // Handle HTTP error
-        //   onError('Error uploading image to server: ${response.statusCode}');
-        // }
+          final userBox = await Hive.openBox<User>('users');
+          await userBox.clear();
+          await userBox.put('user', user);
+          final Map<String, dynamic> data = {
+            'imagePath': downloadURL,
+          };
+
+          Fetch fetch = Fetch('$kBaseUrl/users/$id/upload');
+          await fetch.putData(data, token: authToken);
+        }
       } else if (fileType == 'post') {
-        // Handle post image upload if needed
         onSuccess(downloadURL);
       } else {
         onError('Invalid fileType');
@@ -242,39 +248,6 @@ class ApiService {
     }
   }
 
-  static Future<void> createPost(
-    String id ,
-    String postText ,
-    int postLike ,
-    File imageFile ,
-  )async{
-    try{
-      // store post
-      CollectionReference posts = FirebaseFirestore.instance.collection('posts');
-      // store image
-      final FirebaseStorage storage = FirebaseStorage.instance;
-      final Reference storageReference = storage.ref().child('post_images/${id}_${DateTime.now().millisecondsSinceEpoch}.jpg');
-      // Upload the image to Firebase Storage.
-      final UploadTask uploadTask = storageReference.putFile(imageFile);
-      final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => {});
-
-      // Get the download URL of the uploaded image.
-      final String postImageUrl = await taskSnapshot.ref.getDownloadURL();
-
-       await posts.add({
-      'id': id,
-      'postImageUrl': postImageUrl,
-      'postText': postText,
-      'postLike': postLike,
-    });
-    // Post created successfully.
-    print('Post created successfully.');
-  } catch (e) {
-    // Error handling if the post creation or image upload fails.
-    print('Error creating post: $e');
-  }
-}
-  
   static Future<dynamic> getPosts({
     required Function() whenComplete,
     required Function(String) onError,
@@ -291,11 +264,11 @@ class ApiService {
     Fetch fetch = Fetch('$kBaseUrl/posts');
 
     final responseBody = await fetch.getData(user?.token);
-    final postSresponse = responseBody['posts'];
+    final postResponse = responseBody['posts'];
 
     if (responseBody['error'] == null) {
       whenComplete();
-      return postSresponse;
+      return postResponse;
     }
 
     // return responseBody;
@@ -355,5 +328,48 @@ class ApiService {
 
     whenComplete();
     return response;
+  }
+
+  static Future<void> creatPost({
+    required String userId,
+    required String text,
+    required String imagePath,
+    required String authToken,
+    required Function() whenComplete,
+    required Function(String) onError,
+  }) async {
+    Fetch fetch = Fetch('$kBaseUrl/posts');
+    // text, imagePath, userId
+    final responseBody = await fetch.postData({
+      'text': text,
+      'imagePath': imagePath,
+      'userId': userId,
+    }, token: authToken);
+
+    if (responseBody['error'] == null) {
+      final postResponse = responseBody['post'];
+      print(postResponse);
+
+      // final user = User(
+      //   firstName: userResponse['firstName'] as String,
+      //   lastName: userResponse['lastName'] as String,
+      //   phoneNumber: userResponse['phoneNumber'].toString(),
+      //   email: userResponse['email'] as String,
+      //   username: userResponse['username'] as String,
+      //   profilePicture: '' as String,
+      //   token: token,
+      //   id: userResponse['_id'] as String,
+      // );
+
+      // final userBox = await Hive.openBox<User>('users');
+
+      // await userBox.clear();
+
+      // await userBox.put('user', user);
+
+      whenComplete();
+    } else {
+      onError('SignUp failed: ${responseBody['error']}');
+    }
   }
 }

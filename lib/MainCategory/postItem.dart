@@ -78,6 +78,7 @@ class _PostItemState extends State<PostItem> {
           isLiked = true;
         });
       }
+       
       setState(() {
         likeCount = postLikes.length;
       });

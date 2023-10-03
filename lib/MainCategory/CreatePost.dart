@@ -5,6 +5,7 @@ import 'package:shohaara/LoginScreens/sign_in_page.dart';
 import 'package:shohaara/MainCategory/utils.dart';
 import '../constants.dart';
 import '../hiveModels/userModel.dart';
+import 'package:shohaara/services/post_services.dart';
 import 'package:shohaara/services/api_service.dart';
 import 'package:hive/hive.dart';
 
@@ -58,7 +59,7 @@ class _CreatePostState extends State<CreatePost> {
       final authToken = user.token ?? '';
       final userId = user.id ?? '';
 
-      final response = await ApiService.creatPost(
+      final response = await PostService.createPost(
         userId: userId,
         authToken: authToken,
         text: text,

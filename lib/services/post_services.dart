@@ -44,6 +44,52 @@ class PostService {
     whenComplete();
   }
 
+  static Future<void> createPost({
+    required String userId,
+    required String text,
+    required String imagePath,
+    required String authToken,
+    required Function() whenComplete,
+    required Function(String) onError,
+  }) async {
+    Fetch fetch = Fetch('$kBaseUrl/posts');
+    // text, imagePath, userId
+    final responseBody = await fetch.postData({
+      'text': text,
+      'imagePath': imagePath,
+      'userId': userId,
+    }, token: authToken);
+
+    if (responseBody['error'] == null) {
+      final postResponse = responseBody['post'];
+
+      print(postResponse);
+      final newPost = PostModel.fromJson(postResponse);
+      // Add the new post at the top of the posts list
+      posts.insert(0, newPost as Map<String, dynamic>);
+      // final user = User(
+      //   firstName: userResponse['firstName'] as String,
+      //   lastName: userResponse['lastName'] as String,
+      //   phoneNumber: userResponse['phoneNumber'].toString(),
+      //   email: userResponse['email'] as String,
+      //   username: userResponse['username'] as String,
+      //   profilePicture: '' as String,
+      //   token: token,
+      //   id: userResponse['_id'] as String,
+      // );
+
+      // final userBox = await Hive.openBox<User>('users');
+
+      // await userBox.clear();
+
+      // await userBox.put('user', user);
+
+      whenComplete();
+    } else {
+      onError('SignUp failed: ${responseBody['error']}');
+    }
+  }
+
   static Future<void> likePost(String postId) async {
     final userId = userData?.id;
     print("postId");

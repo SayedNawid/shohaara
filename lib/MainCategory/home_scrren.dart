@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListView.builder(
                   itemCount: PostService.posts.length,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: ScrollPhysics(),
                   itemBuilder: (context, index) {
                     final postMap = PostService.posts[index];
                     final post = PostModel.fromJson(postMap);

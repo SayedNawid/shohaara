@@ -66,6 +66,7 @@ class _CreatePostState extends State<CreatePost> {
         imagePath: imagePath,
         whenComplete: () {
           Navigator.pop(context, true);
+        
         },
         onError: (error) {
           print(error);
@@ -197,7 +198,7 @@ class _CreatePostState extends State<CreatePost> {
                         ),
                       ),
                       _image != null && isLoading
-                          ? const CircularProgressIndicator() // Show the loader when _image is not null and isLoading is true
+                          ? const CircularProgressIndicator()
                           : _image != null
                               ? Image.memory(_image!)
                               : imagePath.isNotEmpty

@@ -3,14 +3,19 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
 import 'package:shohaara/constants.dart';
+import 'package:shohaara/models/comment_model.dart';
 import 'package:shohaara/models/post_model.dart';
+
 import 'package:shohaara/hiveModels/userModel.dart';
+import 'package:shohaara/services/api_service.dart';
 import 'fetcher.dart';
 
 class PostService {
   static List<Map<String, dynamic>> posts = [];
+  static List<CommentModel> comments = [];
   static User? userData;
   static bool isLoading = false;
+  static Function(Map<String, dynamic> post) onPostCreated = (post) {};
 
   static Future<void> fetchPosts({
     required Function() whenComplete,
@@ -37,7 +42,7 @@ class PostService {
         print('Posts exist: $posts');
       }
     } else {
-      print('Failed to fetch posts. Error: ${responseBody['error']}');
+      // print('Failed to fetch posts. Error: ${responseBody['error']}');
       onError();
     }
 
@@ -63,64 +68,87 @@ class PostService {
     if (responseBody['error'] == null) {
       final postResponse = responseBody['post'];
 
-      print(postResponse);
-      final newPost = PostModel.fromJson(postResponse);
-      // Add the new post at the top of the posts list
-      posts.insert(0, newPost as Map<String, dynamic>);
-      // final user = User(
-      //   firstName: userResponse['firstName'] as String,
-      //   lastName: userResponse['lastName'] as String,
-      //   phoneNumber: userResponse['phoneNumber'].toString(),
-      //   email: userResponse['email'] as String,
-      //   username: userResponse['username'] as String,
-      //   profilePicture: '' as String,
-      //   token: token,
-      //   id: userResponse['_id'] as String,
-      // );
-
-      // final userBox = await Hive.openBox<User>('users');
-
-      // await userBox.clear();
-
-      // await userBox.put('user', user);
+      final post = PostModel.fromJson(postResponse);
+      // posts.add(post.toMap());
+      PostService.onPostCreated(post.toMap());
+      //  posts.insert(0, post.toMap());
 
       whenComplete();
     } else {
-      onError('SignUp failed: ${responseBody['error']}');
+      onError('error failed: ${responseBody['error']}');
     }
   }
 
   static Future<void> likePost(String postId) async {
-    final userId = userData?.id;
-    print("postId");
-    print(postId);
-
-    // final int postIndex = posts.indexWhere((post) => post['_id'] == postId);
-    // print(postIndex);
-    // if (postIndex != -1) {
-    // final List<dynamic> postLikes = posts[postIndex]['likes'];
-
-    // if (postLikes.contains(userId)) {
-    //   postLikes.remove(userId);
-    // } else {
-    //   postLikes.add(userId);
-    // }
-    // print(userData);
-    // print(postLikes);
-
-    // final Map<String, String> headers = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': 'Bearer ${userData?.token}',
-    // };
-
     final Map<String, dynamic> body = {
       'postId': postId,
-      'userId': userId,
+      'userId': ApiService.loggedInUser?.id,
     };
 
     Fetch fetch = Fetch('$kBaseUrl/posts/like');
 
     final responseBody = await fetch.postData(body, token: userData?.token);
-    // }
   }
+
+static Future<List<CommentModel>> getCommentsForPost(
+  String postId, {
+  required Function(List<CommentModel>) onSuccess,
+  required Function(String) onError,
+}) async {
+  String? userId = ApiService.loggedInUser!.id;
+  final Fetch fetch = Fetch('$kBaseUrl/comments/$postId/$userId');
+
+  final responseBody = await fetch.getData(ApiService.loggedInUser?.token);
+
+  if (responseBody['error'] == null) {
+    final commentResponse = responseBody['comments'];
+
+    if (commentResponse is List<dynamic>) {
+      
+      List<CommentModel> comments = commentResponse
+          .map((commentJson) => CommentModel.fromJson(commentJson))
+          .toList();
+
+      onSuccess(comments); 
+      return comments; 
+    } else {
+      onError('Invalid response format: comments should be a list.');
+    }
+  } else {
+    onError('Failed to fetch comments: ${responseBody['error']}');
+  }
+
+
+  return [];
+}
+
+static Future<void> addComment({
+  required String postId,
+  required String text,
+
+  required Function(CommentModel) onSuccess,
+  required Function(String) onError,
+}) async {
+  Fetch fetch = Fetch('$kBaseUrl/comments');
+
+  final responseBody = await fetch.postData({
+    'text': text,
+    'postID':postId,
+    'userID':ApiService.loggedInUser?.id
+  }, token: ApiService.loggedInUser?.token);
+
+  if (responseBody['error'] == null) {
+    final commentResponse = responseBody['comment'];
+
+    if (commentResponse != null) {
+      final CommentModel comment = CommentModel.fromJson(commentResponse);
+      onSuccess(comment);
+    } else {
+      onError('Invalid response format: comment should not be null.');
+    }
+  } else {
+    onError('Failed to add comment: ${responseBody['error']}');
+  }
+}
+
 }

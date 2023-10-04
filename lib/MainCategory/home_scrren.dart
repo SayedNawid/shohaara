@@ -22,10 +22,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   User? userData;
   bool _isLoading = false;
+  static List<Map<String, dynamic>> posts = [];
 
   @override
   void initState() {
     super.initState();
+    posts = PostService.posts;
+    PostService.onPostCreated = (newPost) {
+      print(newPost);
+      setState(() {
+        posts.insert(0, newPost);
+      });
+    };
     _getUserData();
   }
 
@@ -50,17 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      await PostService.fetchPosts(
-          whenComplete: () {
-            setState(() {
-              _isLoading = false;
-            });
-          },
-          onError: () {
-             setState(() {
-              _isLoading = false;
-            });
-          });
+      await PostService.fetchPosts(whenComplete: () {
+        setState(() {
+          _isLoading = false;
+        });
+      }, onError: () {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     } catch (error) {
       print('Failed to fetch posts. Error: $error');
       setState(() {
@@ -75,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: RefreshIndicator(
         onRefresh: _refreshPosts,
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               Container(
@@ -84,24 +89,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => CreatePost()),
+                        builder: ((context) => const CreatePost()),
                       ),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     "آیا کدام شعر جدید دارید",
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: kPrimaryColor,
                       fontFamily: "Vazir",
                       fontSize: 18,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     backgroundColor: Colors.white,
                     minimumSize: const Size(315, 50),
                     elevation: 0,
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: kPrimaryColor,
                     ),
                     shadowColor: kPrimaryColor,
@@ -112,14 +117,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               if (_isLoading)
-                CircularProgressIndicator() // Show a loader while fetching posts
+                const CircularProgressIndicator()
               else
                 ListView.builder(
-                  itemCount: PostService.posts.length,
+                  itemCount: posts.length,
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   itemBuilder: (context, index) {
-                    final postMap = PostService.posts[index];
+                    final postMap = posts[index];
                     final post = PostModel.fromJson(postMap);
                     return PostItem(
                       post: post,

@@ -21,7 +21,6 @@ class PostItem extends StatefulWidget {
   State<PostItem> createState() => _PostItemState();
 }
 
-
 class _PostItemState extends State<PostItem> {
   bool isLiked = false;
   int likeCount = 0;
@@ -78,7 +77,7 @@ class _PostItemState extends State<PostItem> {
           isLiked = true;
         });
       }
-       
+
       setState(() {
         likeCount = postLikes.length;
       });
@@ -91,8 +90,8 @@ class _PostItemState extends State<PostItem> {
       final DateTime date = DateTime.tryParse(dateStr) ?? DateTime.now();
 
       final String day = date.day.toString();
-      final String month = date.month.toString();
-      // final String month = _getMonthName(date.month);
+      // final String month = date.month.toString();
+      final String month = _getMonthName(date.month);
       final String year = date.year.toString();
 
       return '$day $month $year';
@@ -207,7 +206,7 @@ class _PostItemState extends State<PostItem> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: double.infinity,
-                height: 100,
+                height: 150,
                 child: Text(
                   widget.post.text ?? '',
                   textAlign: TextAlign.right,
@@ -232,22 +231,22 @@ class _PostItemState extends State<PostItem> {
                 height: 80,
                 child: Row(
                   children: [
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(35, 55),
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.bookmark_outline_outlined,
-                        color: kPrimaryColor,
-                      ),
-                      label: const Text(""),
-                    ),
+                    // ElevatedButton.icon(
+                    //   style: ElevatedButton.styleFrom(
+                    //     minimumSize: const Size(35, 55),
+                    //     elevation: 0,
+                    //     backgroundColor: Colors.white,
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(100),
+                    //     ),
+                    //   ),
+                    //   onPressed: () {},
+                    //   icon: const Icon(
+                    //     Icons.bookmark_outline_outlined,
+                    //     color: kPrimaryColor,
+                    //   ),
+                    //   label: const Text(""),
+                    // ),
                     const Spacer(),
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
@@ -295,7 +294,9 @@ class _PostItemState extends State<PostItem> {
                       },
                       label: Icon(
                         isLiked ? Icons.favorite : Icons.favorite_border,
-                        color: isLiked ? Colors.red : kPrimaryColor,
+                        color: isLiked
+                            ? const Color.fromARGB(255, 195, 31, 20)
+                            : kPrimaryColor,
                       ),
                       icon: Text(
                         likeCount.toString(),

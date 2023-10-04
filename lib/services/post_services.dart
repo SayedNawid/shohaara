@@ -64,9 +64,9 @@ class PostService {
       final postResponse = responseBody['post'];
 
       print(postResponse);
-      final newPost = PostModel.fromJson(postResponse);
+      // final newPost = PostModel.fromJson(postResponse);
       // Add the new post at the top of the posts list
-      posts.insert(0, newPost as Map<String, dynamic>);
+      // posts.insert(0, newPost as Map<String, dynamic>);
       // final user = User(
       //   firstName: userResponse['firstName'] as String,
       //   lastName: userResponse['lastName'] as String,

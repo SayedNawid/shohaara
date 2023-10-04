@@ -18,7 +18,6 @@ List<Map<String, dynamic>> dashboardDrawerItemsList = [
     'title': 'درباره شعراء',
   },
   {'category_index': 1, 'icon': Icons.rule, 'title': 'قوانین و شرایط'},
-  {'category_index': 1, 'icon': Icons.settings, 'title': 'تنظیمات'},
 ];
 List<Map<String, dynamic>> communicationDrawerItemsList = [
   {
@@ -95,7 +94,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
                   child: Row(

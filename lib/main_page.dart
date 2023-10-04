@@ -10,6 +10,7 @@ import 'package:shohaara/MainCategory/about.dart';
 import 'package:shohaara/MainCategory/chat_page.dart';
 import 'package:shohaara/MainCategory/rules.dart';
 import 'package:shohaara/constants.dart';
+import 'package:shohaara/navigation/contact.dart';
 import 'package:shohaara/navigation/custom_drawer_widget.dart';
 
 import 'MainCategory/home_scrren.dart';
@@ -52,6 +53,9 @@ class _MainPageState extends State<MainPage> {
                 } else if (index == 2) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Rules()));
+                } else if (index == 6) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ContactUs()));
                 } else if (index == 8) {
                   SystemNavigator.pop();
                 }

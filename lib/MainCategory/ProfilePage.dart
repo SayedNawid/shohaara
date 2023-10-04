@@ -144,11 +144,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     ListTile(
                       leading: const Icon(
-                        Icons.bookmark_outlined,
+                        Icons.person_2_outlined,
                         color: kPrimaryColor,
                       ),
-                      title: const Text(
-                        "ذخیره شده ها",
+                      title: Text(
+                        userData != null ? "${userData!.username}" : "12345",
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: "Vazir",
@@ -158,11 +158,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     ListTile(
                       leading: const Icon(
-                        Icons.info_rounded,
+                        Icons.verified_user,
                         color: kPrimaryColor,
                       ),
-                      title: const Text(
-                        "درباره شعراء",
+                      title: Text(
+                        userData != null ? "${userData!.firstName}" : "Ahmad",
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: "Vazir",
@@ -172,11 +172,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     ListTile(
                       leading: const Icon(
-                        Icons.rule,
+                        Icons.phone,
                         color: kPrimaryColor,
                       ),
-                      title: const Text(
-                        "قوانین و شرایط",
+                      title: Text(
+                        userData != null
+                            ? "${userData!.phoneNumber}"
+                            : "0799000000",
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: "Vazir",
@@ -186,11 +188,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     ListTile(
                       leading: const Icon(
-                        Icons.settings,
+                        Icons.mail_outline,
                         color: kPrimaryColor,
                       ),
-                      title: const Text(
-                        "تنظیمات",
+                      title: Text(
+                        userData != null
+                            ? "${userData!.email}"
+                            : "gamil.@gmail.com",
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: "Vazir",

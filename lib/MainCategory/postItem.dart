@@ -38,6 +38,8 @@ class _PostItemState extends State<PostItem> {
       isLiked = widget.post.likes.contains(ApiService.loggedInUser?.id);
       likeCount = widget.post.likes.length;
     });
+    print("widget.post.comments");
+    print(widget.post.comments);
   }
   // void checkLiked() {
   //   if (widget.post.likes.contains(ApiService.loggedInUser?.id)) {
@@ -60,8 +62,6 @@ class _PostItemState extends State<PostItem> {
   void updateLikeState() {
     final int postIndex =
         PostService.posts.indexWhere((post) => post['_id'] == widget.post.id);
-    // print("UserID: ${ApiService.loggedInUser?.id}");
-    // print("Likes: ${widget.post.likes}");
     if (postIndex != -1) {
       final List<dynamic> postLikes = PostService.posts[postIndex]['likes'];
       if (postLikes.contains(ApiService.loggedInUser?.id)) {
@@ -69,10 +69,8 @@ class _PostItemState extends State<PostItem> {
         setState(() {
           isLiked = false;
         });
-        print(postLikes);
       } else {
         postLikes.add(ApiService.loggedInUser?.id);
-        print(postLikes);
         setState(() {
           isLiked = true;
         });
@@ -81,7 +79,6 @@ class _PostItemState extends State<PostItem> {
       setState(() {
         likeCount = postLikes.length;
       });
-      print(likeCount);
     }
   }
 
@@ -167,8 +164,9 @@ class _PostItemState extends State<PostItem> {
                   Column(
                     children: [
                       Text(
-                        // (post.userID as Map<String, dynamic>?)?['name'] ?? '',
-                        widget.post.userID['firstName'],
+                        widget.post.userID != null
+                            ? widget.post.userID['firstName'] ?? ''
+                            : '',
                         style: const TextStyle(
                           fontSize: 14,
                           fontFamily: "Vazir",
@@ -258,15 +256,19 @@ class _PostItemState extends State<PostItem> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CommentPage(),
-                          ),
-                        );
-                      },
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CommentPage(
+        postId: widget.post.id,
+        initialComments: widget.post.comments,
+      ),
+    ),
+  );
+},
+
                       icon: Text(
-                        widget.post.likes.length.toString(),
+                        widget.post.comments.length.toString(),
                         style: const TextStyle(
                           fontFamily: "Vazir",
                           color: kPrimaryColor,

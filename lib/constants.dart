@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const kBaseUrl = "https://shohaara-hdshkbmzl-bashir-danish.vercel.app/api/v1";
-const kImgBaseUrl = "https://shohaara-hdshkbmzl-bashir-danish.vercel.app";
+const kBaseUrl = "https://shohaara-c4iqyqid0-bashir-danish.vercel.app/api/v1";
+const kImgBaseUrl = "https://shohaara-c4iqyqid0-bashir-danish.vercel.app";
 // const kBaseUrl = "http://192.168.1.250:5000/api/v1";
 // const kImgBaseUrl = "http://192.168.1.250:5000";
 const kPrimaryColor = Color(0xFF581B98);
